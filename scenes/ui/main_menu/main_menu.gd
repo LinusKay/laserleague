@@ -5,7 +5,7 @@ class_name MainMenu
 @onready var settings_button: Button = %SettingsButton
 @onready var quit_button: Button = %QuitButton
 
-const main_scene_path: String = "res://scenes/game/main/world.tscn"
+const main_scene_path: String = "res://scenes/game/main.tscn"
 const settings_scene_path: String = "res://scenes/ui/main_menu/settings_main_menu.tscn"
 
 

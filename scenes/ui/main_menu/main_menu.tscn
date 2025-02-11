@@ -87,7 +87,7 @@ alignment = 1
 [node name="TitleText" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 123
-text = "Game Title :3"
+text = "Game Title "
 horizontal_alignment = 1
 
 [node name="ButtonsVBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
