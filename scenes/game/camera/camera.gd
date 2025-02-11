@@ -15,14 +15,14 @@ var screen_shake_current: float = screen_shake_interval
 
 func _ready() -> void:
 	if camera == null: push_error("ScreenShake: Camera not assigned!")
-	Global.add_screen_shake.connect(on_add_screen_shake)
+	Global.add_screen_shake_signal.connect(on_add_screen_shake_signal)
 
 
 func _process(delta: float) -> void:
 	process_screen_shake()
 
 
-func add_screen_shake(amount: float) -> void:
+func add_screen_shake_signal(amount: float) -> void:
 	if screen_shake_current <= max_screen_shake:
 		screen_shake_current += amount
 
@@ -40,5 +40,5 @@ func process_screen_shake() -> void:
 	else:
 		screen_shake_current = 0
 
-func on_add_screen_shake(amount: float) -> void:
-	add_screen_shake(amount)
+func on_add_screen_shake_signal(amount: float) -> void:
+	add_screen_shake_signal(amount)

@@ -5,5 +5,5 @@ extends Node
 signal example
 func emit_example() -> void: example.emit()
 
-signal add_screen_shake(amount: float)
-func emit_add_screen_shake(amount: float) -> void: add_screen_shake.emit(amount)
+signal add_screen_shake_signal(amount: float)
+func add_screen_shake(amount: float) -> void: add_screen_shake_signal.emit(amount)

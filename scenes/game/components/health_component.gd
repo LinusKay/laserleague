@@ -1,4 +1,4 @@
-## Handles health. duh
+## Handles health
 extends Node
 class_name HealthComponent
 
@@ -19,13 +19,13 @@ func damage(damage_amount: float) -> void:
 	if damage_amount > 0:
 		health_decreased.emit()
 	Callable(check_death).call_deferred()
+	print(current_health)
 
 
 func heal(heal_amount: float) -> void:
 	damage(-heal_amount)
 
-# godot quirk - can't queue free while calculating enemy physics, 
-# need to wait until end of frame using Callable(check_death).call_deferred()
+# godot quirk - can't queue free while calculating physics, need to wait until end of frame using Callable(check_death).call_deferred()
 func check_death() -> void:
 	if current_health == 0:
 		died.emit()

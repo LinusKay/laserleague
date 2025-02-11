@@ -1,10 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://uxj3i2lrm6j4"]
+[gd_scene load_steps=5 format=3 uid="uid://uxj3i2lrm6j4"]
 
 [ext_resource type="PackedScene" uid="uid://khvjseslaxyg" path="res://scenes/game/camera/camera.tscn" id="1_lfyy7"]
+[ext_resource type="PackedScene" uid="uid://bwcskp1hsvfuj" path="res://scenes/ui/hud/hud.tscn" id="1_x7l61"]
+[ext_resource type="PackedScene" uid="uid://dxd67g8sahn4v" path="res://scenes/ui/pause_menu/pause_menu.tscn" id="2_1swgi"]
 [ext_resource type="PackedScene" uid="uid://bcte6351a6gbb" path="res://scenes/game/player/player.tscn" id="2_dasuy"]
 
 [node name="World" type="Node2D"]
 
-[node name="Camera2D" parent="." instance=ExtResource("1_lfyy7")]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Player" parent="." instance=ExtResource("2_dasuy")]
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("1_x7l61")]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("2_1swgi")]
+visible = false
+
+[node name="Camera2D" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_lfyy7")]
+target = NodePath("..")
+
+[node name="Player1" parent="." groups=["Player"] instance=ExtResource("2_dasuy")]
+modulate = Color(0.6345, 1, 0.49, 1)
+position = Vector2(-399, -187)
+rotation = 0.45093
+hurt_collision_mask = 4
+attack_hit_collision_layer = 2
+
+[node name="Player2" parent="." groups=["Player"] instance=ExtResource("2_dasuy")]
+modulate = Color(0.2, 0.92, 1, 1)
+rotation = -1.5708
+are_controls_active = false

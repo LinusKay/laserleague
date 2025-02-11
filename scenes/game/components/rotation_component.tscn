@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://f8nmrxnpdwy3"]
+
+[ext_resource type="Script" path="res://scenes/game/components/rotation_component.gd" id="1_r2mjy"]
+
+[node name="RotationComponent" type="Node"]
+script = ExtResource("1_r2mjy")
+
+[node name="Target" type="Node2D" parent="."]
+unique_name_in_owner = true

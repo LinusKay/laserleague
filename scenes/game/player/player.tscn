@@ -1,25 +1,162 @@
-[gd_scene load_steps=5 format=3 uid="uid://bcte6351a6gbb"]
+[gd_scene load_steps=18 format=3 uid="uid://bcte6351a6gbb"]
 
 [ext_resource type="Script" path="res://scenes/game/player/player.gd" id="1_0y1be"]
 [ext_resource type="PackedScene" uid="uid://bvhgro6f0yi2h" path="res://scenes/game/components/velocity_component.tscn" id="2_ca1t2"]
-[ext_resource type="Texture2D" uid="uid://cfkm03wg8dr4l" path="res://icon.svg" id="3_mrtw5"]
+[ext_resource type="PackedScene" uid="uid://f8nmrxnpdwy3" path="res://scenes/game/components/rotation_component.tscn" id="3_nbjmg"]
+[ext_resource type="PackedScene" uid="uid://3f43l0jstojp" path="res://scenes/game/components/health_component.tscn" id="4_msavj"]
+[ext_resource type="Texture2D" uid="uid://vqupkgjljjj3" path="res://assets/sprites/player_temp.png" id="4_vj404"]
+[ext_resource type="PackedScene" uid="uid://ck717feb02uvf" path="res://scenes/game/components/hurtbox_component.tscn" id="6_s83lb"]
+[ext_resource type="PackedScene" uid="uid://cuwgvn614a45u" path="res://scenes/game/components/hitbox_component.tscn" id="7_t88sx"]
+
+[sub_resource type="Animation" id="Animation_uywr0"]
+resource_name = "attack"
+length = 0.6
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackHitboxComponent/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/AttackSprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.226367, 0.25, 0.35, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.411765), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6rdmk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackHitboxComponent/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/AttackSprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tjs8d"]
+_data = {
+"RESET": SubResource("Animation_6rdmk"),
+"attack": SubResource("Animation_uywr0")
+}
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1qur0"]
-radius = 38.0
+radius = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fm5mr"]
+radius = 30.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fye55"]
+size = Vector2(1797, 20)
+
+[sub_resource type="Gradient" id="Gradient_4jwi2"]
+offsets = PackedFloat32Array(0, 0.3, 0.7, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wpywg"]
+gradient = SubResource("Gradient_4jwi2")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="Gradient" id="Gradient_ryi2h"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hgd61"]
+gradient = SubResource("Gradient_ryi2h")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_0y1be")
+hurt_collision_mask = 2
+attack_hit_collision_layer = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_tjs8d")
+}
 
 [node name="VelocityComponent" parent="." instance=ExtResource("2_ca1t2")]
 unique_name_in_owner = true
-max_speed = 200.0
-acceleration = 80.0
+max_speed = 400.0
+acceleration = 20.0
 
-[node name="Visuals" type="Node2D" parent="."]
+[node name="RotationComponent" parent="." instance=ExtResource("3_nbjmg")]
+unique_name_in_owner = true
 
-[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
-scale = Vector2(0.609375, 0.609375)
-texture = ExtResource("3_mrtw5")
+[node name="HealthComponent" parent="." instance=ExtResource("4_msavj")]
+
+[node name="AttackCooldownTimer" type="Timer" parent="."]
+unique_name_in_owner = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_1qur0")
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_s83lb")]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("CircleShape2D_fm5mr")
+
+[node name="AttackHitboxComponent" parent="." instance=ExtResource("7_t88sx")]
+unique_name_in_owner = true
+collision_layer = 2
+collision_mask = 0
+damage = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitboxComponent"]
+position = Vector2(935.5, 0)
+shape = SubResource("RectangleShape2D_fye55")
+disabled = true
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite2D" parent="Visuals"]
+scale = Vector2(3.6, 3.6)
+texture = ExtResource("4_vj404")
+
+[node name="AttackSprite" type="Sprite2D" parent="Visuals"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(929, 0)
+scale = Vector2(28.2812, 0.59375)
+texture = SubResource("GradientTexture2D_wpywg")
+
+[node name="AttackIndicatorSprite" type="Sprite2D" parent="Visuals"]
+position = Vector2(929, 0)
+scale = Vector2(28.2812, 0.09375)
+texture = SubResource("GradientTexture2D_hgd61")

@@ -1,4 +1,5 @@
 ## Handles the base movement of an assigned (usually parent) characterbody2d, handling acceleration/direction
+# all these are designed to be used in _process()
 extends Node
 class_name VelocityComponent
 
@@ -37,7 +38,7 @@ func accelerate_in_direction(direction: Vector2, custom_speed: float = 0) -> voi
 func decelerate() -> void:
 	accelerate_in_direction(Vector2.ZERO)
 
-
+# essentially calling move_and_slide() on the specified body
 func move(character_body: CharacterBody2D) -> void:
 	# set body velocity to desired value, then slide, 
 	character_body.velocity = velocity
