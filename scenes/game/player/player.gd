@@ -16,7 +16,13 @@ const JUMP_VELOCITY = -400.0
 
 var last_targeted_rotation: Vector2
 var is_attacking: bool = false
+var is_charging: bool = false
 
+var attack_power: float = 1.0
+var attack_power_increase: float = 0.01
+
+signal attacked
+signal attack_start
 
 func _ready() -> void:
 	hurtbox_component.collision_layer = hurt_collision_mask
@@ -34,14 +40,23 @@ func _process(delta: float) -> void:
 		last_targeted_rotation = Vector2(Input.get_axis("aim_left", "aim_right"), Input.get_axis("aim_up", "aim_down"))
 		rotation_component.rotate_towards_position(last_targeted_rotation.normalized(), self)
 	
+	if Input.is_action_pressed("attack") and !is_attacking:
+		if !is_charging: emit_signal("attack_start")
+		is_charging = true
+		attack_power += attack_power_increase
+		print(attack_power)
+	
 	if Input.is_action_just_released("attack") and !is_attacking:
 		attack()
 
 
 func attack() -> void:
 	animation_player.play("attack")
+	emit_signal("attacked")
+	attack_screen_shake()
 	await animation_player.animation_finished
 	is_attacking = false
+	is_charging = false
 
 
 func attack_screen_shake() -> void:
