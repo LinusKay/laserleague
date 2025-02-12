@@ -54,16 +54,17 @@ rotation = 0.45093
 player_color = Color(8.108, 0.21, 0, 1)
 player_attack_color = Color(25.405, 17.838, 4.324, 1)
 player_attack_ind_color = Color(2, 0.6, 0.4, 1)
+controller_id = null
 hurt_collision_mask = 4
 attack_hit_collision_layer = 2
 
 [node name="PlayerB" parent="World" groups=["Player"] instance=ExtResource("2_dasuy")]
 modulate = Color(0.2, 0.92, 1, 1)
 rotation = -1.5708
-are_controls_active = false
 player_color = Color(0, 5.946, 10.811, 1)
 player_attack_color = Color(1.082, 17.838, 30.27, 1)
 player_attack_ind_color = Color(0.4, 0.8, 2, 1)
+controller_id = 1
 
 [node name="Arena" type="Control" parent="World"]
 layout_mode = 3

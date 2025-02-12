@@ -17,20 +17,23 @@ class_name Player
 @export var player_attack_color: Color = Color.WHITE
 @export var player_attack_ind_color: Color = Color.WHITE
 
+@export var controller_id: int = 0
+
 @export_flags_2d_physics var hurt_collision_mask: int
 @export_flags_2d_physics var attack_hit_collision_layer: int
 @export var death_particle_scene: PackedScene
 
 const ATTACK_SPRITE_Y_BASE = 0.05
 const ATTACK_INDICATOR_SPRITE_Y_BASE = 0.094
-const ATTACK_SPRITE_SCALE_INCREASE = 0.004
-const ATTACK_HITBOX_SCALE_INCREASE = 0.005
+const ATTACK_SPRITE_SCALE_INCREASE = 1.0
+const ATTACK_HITBOX_SCALE_INCREASE = 1.0
 const ATTACK_POWER_BASE = 0.01
-const SECONDS_UNTIL_MAX_DAMAGE = 5
-const ROTATION_ACCELERATION_BASE = 1
-const ROTATION_ACCELERATION_DECREASE = .01
-const VELOCITY_DECREASE = .005
+const SECONDS_UNTIL_MAX_DAMAGE = 5.0
+const ROTATION_ACCELERATION_BASE = 1.0
+const ROTATION_ACCELERATION_DECREASE = 0.5
+const VELOCITY_DECREASE = 0.5
 
+const JOY_DEADZONE = 0.2
 
 var last_targeted_rotation: Vector2
 var is_attacking: bool = false
@@ -62,40 +65,63 @@ func _process(delta: float) -> void:
 		%AttackSprite.modulate = player_attack_color
 		%AttackIndicatorSprite.modulate = player_attack_ind_color
 		return
-	
+		
 	if !are_controls_active: return
-	velocity_component.accelerate_in_direction(Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down")).normalized())
+	
+	# Left stick movement
+	var move_input: Vector2 = Vector2(
+		Input.get_joy_axis(controller_id, JOY_AXIS_LEFT_X),
+		Input.get_joy_axis(controller_id, JOY_AXIS_LEFT_Y),
+	)
+	if abs(move_input.x) < JOY_DEADZONE:
+		move_input.x = 0.0
+	if abs(move_input.y) < JOY_DEADZONE:
+		move_input.y = 0.0
+			
+	velocity_component.accelerate_in_direction(move_input)
 	velocity_component.move(self)
 	
-	var is_aiming: bool = Input.is_action_pressed("aim_left") or Input.is_action_pressed("aim_right") or Input.is_action_pressed("aim_up") or Input.is_action_pressed("aim_down")
+	# Right stick aiming
+	var aim_input: Vector2 = Vector2(
+		Input.get_joy_axis(controller_id, JOY_AXIS_RIGHT_X), 
+		Input.get_joy_axis(controller_id, JOY_AXIS_RIGHT_Y)
+	)
+	if aim_input.length() < JOY_DEADZONE:
+		aim_input = Vector2.ZERO
+		
+	var is_aiming: bool = aim_input != Vector2.ZERO
+
 	if is_aiming:
 		if !is_attacking:
-			last_targeted_rotation = Vector2(Input.get_axis("aim_left", "aim_right"), Input.get_axis("aim_up", "aim_down"))
-			rotation_component.rotate_towards_position(last_targeted_rotation.normalized(), self)
-		#else:
-			#last_targeted_rotation = Vector2.RIGHT.rotated(rotation)
+			last_targeted_rotation = aim_input.normalized()
+			rotation_component.rotate_towards_position(last_targeted_rotation, self)
 	
-	if Input.is_action_pressed("attack") and !is_attacking:
+	# Get trigger inputs
+	var trigger_left: bool = abs(Input.get_joy_axis(controller_id, JOY_AXIS_TRIGGER_LEFT)) > JOY_DEADZONE
+	var trigger_right: bool = abs(Input.get_joy_axis(controller_id, JOY_AXIS_TRIGGER_RIGHT)) > JOY_DEADZONE
+
+	# If either trigger is held and not currently attacking, initiate attack charge
+	var attack_input: bool = trigger_left or trigger_right
+	if attack_input and !is_attacking:
 		if !is_charging: emit_signal("attack_start")
 		is_charging = true
 		attack_power += get_process_delta_time() / SECONDS_UNTIL_MAX_DAMAGE
-		%AttackSprite.scale.y += ATTACK_SPRITE_SCALE_INCREASE
-		%AttackSpriteHead.scale += Vector2(ATTACK_SPRITE_SCALE_INCREASE, ATTACK_SPRITE_SCALE_INCREASE) * 0.35
-		%AttackIndicatorSprite.scale.y += ATTACK_SPRITE_SCALE_INCREASE
-		%AttackHitboxComponent.scale.y += ATTACK_HITBOX_SCALE_INCREASE
+		%AttackSprite.scale.y += ATTACK_SPRITE_SCALE_INCREASE * delta
+		%AttackSpriteHead.scale += Vector2(ATTACK_SPRITE_SCALE_INCREASE, ATTACK_SPRITE_SCALE_INCREASE) * 0.35 * delta
+		%AttackIndicatorSprite.scale.y += ATTACK_SPRITE_SCALE_INCREASE * delta
+		%AttackHitboxComponent.scale.y += ATTACK_HITBOX_SCALE_INCREASE * delta
 		#print("----------Attack Charge----------"\
 		#+ "\nAttack Power: " + str(attack_power)
 		#+ "\nAttack Sprite Scale: " + str(%AttackSprite.scale.y)
 		#+ "\nAttack Indicator Sprite Scale: " + str(%AttackIndicatorSprite.scale.y)
 		#)
-		velocity_component.speed *= 1 - VELOCITY_DECREASE
-		rotation_component.acceleration *= 1 - ROTATION_ACCELERATION_DECREASE
-		
-	if Input.is_action_just_released("attack") and !is_attacking:
+		velocity_component.speed *= 1 - VELOCITY_DECREASE * delta
+		rotation_component.acceleration *= 1 - ROTATION_ACCELERATION_DECREASE * delta
+	
+	# If either trigger is not held but meant to be charging, and not already attacking, release attack
+	if is_charging and !attack_input and !is_attacking:
 		attack()
-		var bounce_direction := -transform.x.normalized() 
-		var bounce_speed := 5000 * attack_power 
-		velocity_component.accelerate_in_direction(bounce_direction, bounce_speed)
+		bounce_back()
 
 
 func attack() -> void:
@@ -120,6 +146,7 @@ func attack() -> void:
 	attack_power = ATTACK_POWER_BASE
 	velocity_component.reset_speed()
 	rotation_component.acceleration = ROTATION_ACCELERATION_BASE
+	
 
 
 func attack_screen_shake() -> void:
@@ -134,4 +161,9 @@ func on_died() -> void:
 	death_particle_instance.global_position = global_position
 	death_particle_instance.modulate = player_attack_color
 	queue_free()
-	
+
+
+func bounce_back() -> void:
+	var bounce_direction := -transform.x.normalized() 
+	var bounce_speed := 5000 * attack_power 
+	velocity_component.accelerate_in_direction(bounce_direction, bounce_speed)
