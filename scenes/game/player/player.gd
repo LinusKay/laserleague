@@ -15,6 +15,7 @@ const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
 const ATTACK_SPRITE_Y_BASE = 0.594
+const ATTACK_INDICATOR_SPRITE_Y_BASE = 0.094
 const ATTACK_SPRITE_Y_INCREASE = 0.005
 const ATTACK_POWER_BASE = 1.0
 const ATTACK_POWER_INCREASE = 0.01
@@ -25,7 +26,7 @@ var is_charging: bool = false
 
 var attack_power: float = ATTACK_POWER_BASE
 
-signal attacked
+signal attacked(attack_power: float)
 signal attack_start
 
 func _ready() -> void:
@@ -48,22 +49,31 @@ func _process(delta: float) -> void:
 		if !is_charging: emit_signal("attack_start")
 		is_charging = true
 		attack_power += ATTACK_POWER_INCREASE
-		print("Attack Power: " + str(attack_power))
 		%AttackSprite.scale.y += ATTACK_SPRITE_Y_INCREASE
-		print("Attack Sprite Scale: " + str(%AttackSprite.scale.y))
-	
+		%AttackIndicatorSprite.scale.y += ATTACK_SPRITE_Y_INCREASE
+		print("----------Attack Charge----------"\
+		+ "\nAttack Power: " + str(attack_power)
+		+ "\nAttack Sprite Scale: " + str(%AttackSprite.scale.y)
+		+ "\nAttack Indicator Sprite Scale: " + str(%AttackIndicatorSprite.scale.y)
+		)
 	if Input.is_action_just_released("attack") and !is_attacking:
 		attack()
 
 
 func attack() -> void:
+	print("----------Attack Released!----------"\
+	+ "\nAttack Power: " + str(attack_power)
+	+ "\nAttack Sprite Scale: " + str(%AttackSprite.scale.y)
+	+ "\nAttack Indicator Sprite Scale: " + str(%AttackIndicatorSprite.scale.y)
+	)
 	animation_player.play("attack")
-	emit_signal("attacked")
+	emit_signal("attacked", attack_power)
 	attack_screen_shake()
 	await animation_player.animation_finished
 	is_attacking = false
 	is_charging = false
 	%AttackSprite.scale.y = ATTACK_SPRITE_Y_BASE
+	%AttackIndicatorSprite.scale.y = ATTACK_INDICATOR_SPRITE_Y_BASE
 	attack_power = ATTACK_POWER_BASE
 
 

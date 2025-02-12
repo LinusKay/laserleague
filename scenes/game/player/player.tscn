@@ -158,6 +158,7 @@ scale = Vector2(28.2812, 0.59375)
 texture = SubResource("GradientTexture2D_wpywg")
 
 [node name="AttackIndicatorSprite" type="Sprite2D" parent="Visuals"]
+unique_name_in_owner = true
 position = Vector2(929, 0)
 scale = Vector2(28.2812, 0.09375)
 texture = SubResource("GradientTexture2D_hgd61")

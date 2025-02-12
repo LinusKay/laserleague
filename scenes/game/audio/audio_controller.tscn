@@ -6,7 +6,6 @@
 
 [node name="AudioBack" type="AudioStreamPlayer"]
 stream = ExtResource("1_7j6wp")
-autoplay = true
 bus = &"music"
 
 [node name="AudioSynthCrunch" type="AudioStreamPlayer" parent="."]
