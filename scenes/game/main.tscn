@@ -37,6 +37,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="AudioController" parent="." instance=ExtResource("5_n2kco")]
 script = ExtResource("6_o68kx")
@@ -51,16 +52,18 @@ position = Vector2(960, 540)
 [node name="PlayerA" parent="World" groups=["Player"] instance=ExtResource("2_dasuy")]
 position = Vector2(-399, -187)
 rotation = 0.45093
+player_name = "Player1"
 player_color = Color(8.108, 0.21, 0, 1)
 player_attack_color = Color(25.405, 17.838, 4.324, 1)
 player_attack_ind_color = Color(2, 0.6, 0.4, 1)
-controller_id = null
+controller_id = 0
 hurt_collision_mask = 4
 attack_hit_collision_layer = 2
 
 [node name="PlayerB" parent="World" groups=["Player"] instance=ExtResource("2_dasuy")]
 modulate = Color(0.2, 0.92, 1, 1)
 rotation = -1.5708
+player_name = "Player2"
 player_color = Color(0, 5.946, 10.811, 1)
 player_attack_color = Color(1.082, 17.838, 30.27, 1)
 player_attack_ind_color = Color(0.4, 0.8, 2, 1)
@@ -69,6 +72,7 @@ controller_id = 1
 [node name="Arena" type="Control" parent="World"]
 layout_mode = 3
 anchors_preset = 0
+metadata/_edit_use_anchors_ = true
 
 [node name="HUD" parent="World/Arena" node_paths=PackedStringArray("player_a", "player_b") instance=ExtResource("1_x7l61")]
 z_index = -1
@@ -76,6 +80,7 @@ custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 1
 player_a = NodePath("../../PlayerA")
 player_b = NodePath("../../PlayerB")
+metadata/_edit_use_anchors_ = true
 
 [node name="Collision" type="StaticBody2D" parent="World/Arena"]
 position = Vector2(0, 330)
@@ -107,6 +112,7 @@ offset_top = -583.0
 offset_right = 1001.0
 offset_bottom = 583.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_a0e55")
+metadata/_edit_use_anchors_ = true
 
 [node name="Frame" type="Panel" parent="World/Arena"]
 modulate = Color(25, 25, 25, 0.647)
@@ -117,6 +123,7 @@ offset_right = 708.0
 offset_bottom = 500.0
 mouse_filter = 2
 theme = ExtResource("7_34in0")
+metadata/_edit_use_anchors_ = true
 
 [node name="LayerFX" type="Node2D" parent="World" groups=["LayerFX"]]
 

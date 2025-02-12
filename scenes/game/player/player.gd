@@ -41,6 +41,8 @@ var is_charging: bool = false
 
 var attack_power: float = ATTACK_POWER_BASE
 
+var is_dashing: bool = false
+
 signal attacked(attack_power: float)
 signal attack_start
 
@@ -73,6 +75,7 @@ func _process(delta: float) -> void:
 		Input.get_joy_axis(controller_id, JOY_AXIS_LEFT_X),
 		Input.get_joy_axis(controller_id, JOY_AXIS_LEFT_Y),
 	)
+	if is_dashing: move_input = Vector2.ZERO
 	if abs(move_input.x) < JOY_DEADZONE:
 		move_input.x = 0.0
 	if abs(move_input.y) < JOY_DEADZONE:
@@ -81,6 +84,11 @@ func _process(delta: float) -> void:
 	velocity_component.accelerate_in_direction(move_input)
 	velocity_component.move(self)
 	
+	if Input.is_joy_button_pressed(controller_id, JOY_BUTTON_LEFT_SHOULDER) and !is_dashing:
+		dash("left")
+	if Input.is_joy_button_pressed(controller_id, JOY_BUTTON_RIGHT_SHOULDER) and !is_dashing:
+		dash("right")
+	
 	# Right stick aiming
 	var aim_input: Vector2 = Vector2(
 		Input.get_joy_axis(controller_id, JOY_AXIS_RIGHT_X), 
@@ -88,9 +96,7 @@ func _process(delta: float) -> void:
 	)
 	if aim_input.length() < JOY_DEADZONE:
 		aim_input = Vector2.ZERO
-		
 	var is_aiming: bool = aim_input != Vector2.ZERO
-
 	if is_aiming:
 		if !is_attacking:
 			last_targeted_rotation = aim_input.normalized()
@@ -167,3 +173,19 @@ func bounce_back() -> void:
 	var bounce_direction := -transform.x.normalized() 
 	var bounce_speed := 5000 * attack_power 
 	velocity_component.accelerate_in_direction(bounce_direction, bounce_speed)
+	
+func dash(_direction: String) -> void:
+	is_dashing = true
+	var dash_direction: Vector2 = Vector2.ZERO
+	print(transform.y.x)
+	if _direction == "left":
+		dash_direction = -transform.y.normalized()
+	else:
+		dash_direction = transform.y.normalized()
+	var dash_speed := 30000
+	velocity_component.accelerate_in_direction(dash_direction, dash_speed)
+	%DashCooldownTimer.start()
+
+
+func _on_dash_cooldown_timer_timeout() -> void:
+	is_dashing = false

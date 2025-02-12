@@ -188,6 +188,8 @@ position = Vector2(1485, 0)
 shape = SubResource("RectangleShape2D_fye55")
 disabled = true
 
+[node name="RayCast2D" type="RayCast2D" parent="AttackHitboxComponent"]
+
 [node name="Visuals" type="Node2D" parent="."]
 
 [node name="AttackSpriteHead" type="Sprite2D" parent="Visuals"]
@@ -214,3 +216,9 @@ unique_name_in_owner = true
 rotation = 1.5708
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_8jufa")
+
+[node name="DashCooldownTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+
+[connection signal="timeout" from="DashCooldownTimer" to="." method="_on_dash_cooldown_timer_timeout"]
