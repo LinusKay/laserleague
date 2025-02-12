@@ -3,7 +3,7 @@ extends Camera2D
 @export var target: Node2D = null
 @export var screen_shake_amount: float = 0.0
 @export var screen_shake_decay_rate: float = 1.0
-@export var max_screen_shake: float = 20
+@export var max_screen_shake: float = 200
 var screen_shake_offset: Vector2 = Vector2(0.0, 0.0)
 @export var screen_shake_interval: float = 0.05
 
@@ -22,9 +22,11 @@ func _process(delta: float) -> void:
 	process_screen_shake()
 
 
-func add_screen_shake_signal(amount: float) -> void:
+func add_screen_shake(amount: float) -> void:
 	if screen_shake_current <= max_screen_shake:
 		screen_shake_current += amount
+	if screen_shake_current > max_screen_shake:
+		screen_shake_current = max_screen_shake
 
 
 func process_screen_shake() -> void:
@@ -38,7 +40,7 @@ func process_screen_shake() -> void:
 		if target != null:
 			camera.global_position = lerp(camera.global_position, target.global_position + Vector2(camera_offset.x, camera_offset.y), 0.3) + Vector2(shake.x, shake.y)
 	else:
-		screen_shake_current = 0
+		screen_shake_current = 0 
 
 func on_add_screen_shake_signal(amount: float) -> void:
-	add_screen_shake_signal(amount)
+	add_screen_shake(amount)

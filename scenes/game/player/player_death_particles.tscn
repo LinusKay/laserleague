@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://8r3pgwwyghql"]
+
+[ext_resource type="Script" path="res://scenes/game/player/player_death_particles.gd" id="1_rwbbb"]
+
+[sub_resource type="Curve" id="Curve_lsiox"]
+max_value = 100.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 100), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_tyvjj"]
+curve = SubResource("Curve_lsiox")
+
+[sub_resource type="Curve" id="Curve_xwlc8"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0772532, 1), 0.0, 0.0, 0, 0, Vector2(0.725322, 0.802198), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_eqfgi"]
+curve = SubResource("Curve_xwlc8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_24dms"]
+lifetime_randomness = 0.37
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 180.0
+initial_velocity_min = 516.72
+initial_velocity_max = 736.06
+angular_velocity_min = -96.36
+angular_velocity_max = 123.12
+gravity = Vector3(0, 0, 0)
+damping_min = 8.179
+damping_max = 10.781
+damping_curve = SubResource("CurveTexture_tyvjj")
+scale_min = 12.0
+scale_max = 20.0
+scale_curve = SubResource("CurveTexture_eqfgi")
+
+[node name="PlayerDeathParticles" type="GPUParticles2D"]
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_24dms")
+lifetime = 2.0
+one_shot = true
+explosiveness = 0.98
+script = ExtResource("1_rwbbb")

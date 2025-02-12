@@ -1,64 +1,125 @@
-[gd_scene load_steps=8 format=3 uid="uid://uxj3i2lrm6j4"]
+[gd_scene load_steps=12 format=3 uid="uid://uxj3i2lrm6j4"]
 
+[ext_resource type="Shader" path="res://theme/shaders/glow.gdshader" id="1_81xtn"]
 [ext_resource type="PackedScene" uid="uid://khvjseslaxyg" path="res://scenes/game/camera/camera.tscn" id="1_lfyy7"]
 [ext_resource type="PackedScene" uid="uid://bwcskp1hsvfuj" path="res://scenes/ui/hud/hud.tscn" id="1_x7l61"]
 [ext_resource type="PackedScene" uid="uid://dxd67g8sahn4v" path="res://scenes/ui/pause_menu/pause_menu.tscn" id="2_1swgi"]
 [ext_resource type="PackedScene" uid="uid://bcte6351a6gbb" path="res://scenes/game/player/player.tscn" id="2_dasuy"]
 [ext_resource type="PackedScene" uid="uid://c3hmrg38vg16t" path="res://scenes/game/audio/audio_controller.tscn" id="5_n2kco"]
 [ext_resource type="Script" path="res://scenes/game/audio/audio_controller.gd" id="6_o68kx"]
+[ext_resource type="Theme" uid="uid://kj7612otfuem" path="res://theme/gameplay_theme.tres" id="7_34in0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qml0l"]
+shader = ExtResource("1_81xtn")
+shader_parameter/hpass = 1.0
+shader_parameter/vpass = 1.0
+shader_parameter/radius = 65
+shader_parameter/unit = Vector2(1, 1)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_klpgj"]
 
-[node name="World" type="Node2D"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a0e55"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="Main" type="Node2D"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="HUD" parent="CanvasLayer" instance=ExtResource("1_x7l61")]
-
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("2_1swgi")]
 visible = false
+z_index = -1
 
-[node name="Camera2D" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_lfyy7")]
-target = NodePath("..")
-
-[node name="Player1" parent="." groups=["Player"] instance=ExtResource("2_dasuy")]
-modulate = Color(0.6345, 1, 0.49, 1)
-position = Vector2(-399, -187)
-rotation = 0.45093
-hurt_collision_mask = 4
-attack_hit_collision_layer = 2
-
-[node name="Player2" parent="." groups=["Player"] instance=ExtResource("2_dasuy")]
-modulate = Color(0.2, 0.92, 1, 1)
-rotation = -1.5708
-are_controls_active = false
+[node name="GlowShader" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_qml0l")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="AudioController" parent="." instance=ExtResource("5_n2kco")]
 script = ExtResource("6_o68kx")
 
-[node name="Border" type="StaticBody2D" parent="."]
+[node name="Camera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_lfyy7")]
+position = Vector2(960, 540)
+target = NodePath("../World")
+
+[node name="World" type="Node2D" parent="."]
+position = Vector2(960, 540)
+
+[node name="PlayerA" parent="World" groups=["Player"] instance=ExtResource("2_dasuy")]
+position = Vector2(-399, -187)
+rotation = 0.45093
+player_color = Color(8.108, 0.21, 0, 1)
+player_attack_color = Color(25.405, 17.838, 4.324, 1)
+player_attack_ind_color = Color(2, 0.6, 0.4, 1)
+hurt_collision_mask = 4
+attack_hit_collision_layer = 2
+
+[node name="PlayerB" parent="World" groups=["Player"] instance=ExtResource("2_dasuy")]
+modulate = Color(0.2, 0.92, 1, 1)
+rotation = -1.5708
+are_controls_active = false
+player_color = Color(0, 5.946, 10.811, 1)
+player_attack_color = Color(1.082, 17.838, 30.27, 1)
+player_attack_ind_color = Color(0.4, 0.8, 2, 1)
+
+[node name="Arena" type="Control" parent="World"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="HUD" parent="World/Arena" node_paths=PackedStringArray("player_a", "player_b") instance=ExtResource("1_x7l61")]
+z_index = -1
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 1
+player_a = NodePath("../../PlayerA")
+player_b = NodePath("../../PlayerB")
+
+[node name="Collision" type="StaticBody2D" parent="World/Arena"]
 position = Vector2(0, 330)
 
-[node name="BorderSouth" type="CollisionShape2D" parent="Border"]
-position = Vector2(0, -8)
+[node name="BorderSouth" type="CollisionShape2D" parent="World/Arena/Collision"]
+position = Vector2(0, 150)
 shape = SubResource("WorldBoundaryShape2D_klpgj")
 
-[node name="BorderEast" type="CollisionShape2D" parent="Border"]
-position = Vector2(576, -330)
+[node name="BorderEast" type="CollisionShape2D" parent="World/Arena/Collision"]
+position = Vector2(688, -330)
 rotation = -1.5708
 shape = SubResource("WorldBoundaryShape2D_klpgj")
 
-[node name="BorderWest" type="CollisionShape2D" parent="Border"]
-position = Vector2(-578, -330)
+[node name="BorderWest" type="CollisionShape2D" parent="World/Arena/Collision"]
+position = Vector2(-688, -330)
 rotation = 1.5708
 shape = SubResource("WorldBoundaryShape2D_klpgj")
 
-[node name="BorderNorth" type="CollisionShape2D" parent="Border"]
-position = Vector2(0, -655)
+[node name="BorderNorth" type="CollisionShape2D" parent="World/Arena/Collision"]
+position = Vector2(0, -810)
 rotation = 3.14159
 shape = SubResource("WorldBoundaryShape2D_klpgj")
 
-[connection signal="attack_start" from="Player1" to="AudioController" method="_on_player_1_attack_start"]
-[connection signal="attacked" from="Player1" to="AudioController" method="_on_player_1_attacked"]
-[connection signal="attack_start" from="Player2" to="AudioController" method="_on_player_2_attack_start"]
-[connection signal="attacked" from="Player2" to="AudioController" method="_on_player_2_attacked"]
+[node name="Background" type="Panel" parent="World/Arena"]
+z_index = -5
+layout_mode = 0
+offset_left = -1000.0
+offset_top = -583.0
+offset_right = 1001.0
+offset_bottom = 583.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0e55")
+
+[node name="Frame" type="Panel" parent="World/Arena"]
+modulate = Color(25, 25, 25, 0.647)
+layout_mode = 1
+offset_left = -708.0
+offset_top = -500.0
+offset_right = 708.0
+offset_bottom = 500.0
+mouse_filter = 2
+theme = ExtResource("7_34in0")
+
+[node name="LayerFX" type="Node2D" parent="World" groups=["LayerFX"]]
+
+[connection signal="attack_start" from="World/PlayerA" to="AudioController" method="_on_player_1_attack_start"]
+[connection signal="attacked" from="World/PlayerA" to="AudioController" method="_on_player_1_attacked"]
+[connection signal="attack_start" from="World/PlayerB" to="AudioController" method="_on_player_2_attack_start"]
+[connection signal="attacked" from="World/PlayerB" to="AudioController" method="_on_player_2_attacked"]

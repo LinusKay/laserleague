@@ -1,12 +1,15 @@
-[gd_scene load_steps=18 format=3 uid="uid://bcte6351a6gbb"]
+[gd_scene load_steps=19 format=3 uid="uid://bcte6351a6gbb"]
 
 [ext_resource type="Script" path="res://scenes/game/player/player.gd" id="1_0y1be"]
 [ext_resource type="PackedScene" uid="uid://bvhgro6f0yi2h" path="res://scenes/game/components/velocity_component.tscn" id="2_ca1t2"]
 [ext_resource type="PackedScene" uid="uid://f8nmrxnpdwy3" path="res://scenes/game/components/rotation_component.tscn" id="3_nbjmg"]
 [ext_resource type="PackedScene" uid="uid://3f43l0jstojp" path="res://scenes/game/components/health_component.tscn" id="4_msavj"]
-[ext_resource type="Texture2D" uid="uid://vqupkgjljjj3" path="res://assets/sprites/player_temp.png" id="4_vj404"]
 [ext_resource type="PackedScene" uid="uid://ck717feb02uvf" path="res://scenes/game/components/hurtbox_component.tscn" id="6_s83lb"]
+[ext_resource type="Texture2D" uid="uid://gjbj6jb3aeye" path="res://assets/sprites/player.svg" id="7_8jufa"]
+[ext_resource type="Texture2D" uid="uid://cluh40wckyteo" path="res://assets/sprites/laser_body.svg" id="7_85jer"]
+[ext_resource type="Texture2D" uid="uid://bbmx7wqvnrp6g" path="res://assets/sprites/laser_head.svg" id="7_gxugg"]
 [ext_resource type="PackedScene" uid="uid://cuwgvn614a45u" path="res://scenes/game/components/hitbox_component.tscn" id="7_t88sx"]
+[ext_resource type="PackedScene" uid="uid://8r3pgwwyghql" path="res://scenes/game/player/player_death_particles.tscn" id="10_k10vx"]
 
 [sub_resource type="Animation" id="Animation_6rdmk"]
 length = 0.001
@@ -25,7 +28,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Visuals/AttackSprite:modulate")
+tracks/1/path = NodePath("Visuals/AttackSprite:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -34,11 +37,35 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visuals/AttackSpriteHead:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Visuals/PlayerSprite:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_uywr0"]
 resource_name = "attack"
 length = 0.6
-step = 0.05
+step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -54,14 +81,38 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Visuals/AttackSprite:modulate")
+tracks/1/path = NodePath("Visuals/AttackSprite:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.226367, 0.25, 0.35, 0.6),
+"times": PackedFloat32Array(0, 0.22, 0.25, 0.35, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.411765), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.03), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visuals/AttackSpriteHead:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.22, 0.25, 0.35, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.03), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Visuals/PlayerSprite:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.22, 0.25, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1.5, 1.5, 1.5, 1), Color(2.5, 2.5, 2.5, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tjs8d"]
@@ -77,20 +128,11 @@ radius = 32.0
 radius = 30.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fye55"]
-size = Vector2(1797, 20)
-
-[sub_resource type="Gradient" id="Gradient_4jwi2"]
-offsets = PackedFloat32Array(0, 0.3, 0.7, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_wpywg"]
-gradient = SubResource("Gradient_4jwi2")
-fill_from = Vector2(0, 1)
-fill_to = Vector2(0, 0)
+size = Vector2(2896, 20)
 
 [sub_resource type="Gradient" id="Gradient_ryi2h"]
-offsets = PackedFloat32Array(0, 0.5, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0, 0.2, 0.3, 0.7, 0.8, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.2, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0.2, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_hgd61"]
 gradient = SubResource("Gradient_ryi2h")
@@ -101,6 +143,7 @@ fill_to = Vector2(0, 0)
 script = ExtResource("1_0y1be")
 hurt_collision_mask = 2
 attack_hit_collision_layer = 4
+death_particle_scene = ExtResource("10_k10vx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
@@ -110,12 +153,13 @@ libraries = {
 
 [node name="VelocityComponent" parent="." instance=ExtResource("2_ca1t2")]
 unique_name_in_owner = true
-acceleration = 20.0
+max_speed = 800.0
 
 [node name="RotationComponent" parent="." instance=ExtResource("3_nbjmg")]
 unique_name_in_owner = true
 
 [node name="HealthComponent" parent="." instance=ExtResource("4_msavj")]
+unique_name_in_owner = true
 
 [node name="AttackCooldownTimer" type="Timer" parent="."]
 unique_name_in_owner = true
@@ -139,25 +183,33 @@ collision_mask = 0
 damage = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitboxComponent"]
-position = Vector2(935.5, 0)
+position = Vector2(1485, 0)
 shape = SubResource("RectangleShape2D_fye55")
 disabled = true
 
 [node name="Visuals" type="Node2D" parent="."]
 
-[node name="Sprite" type="Sprite2D" parent="Visuals"]
-scale = Vector2(3.6, 3.6)
-texture = ExtResource("4_vj404")
+[node name="AttackSpriteHead" type="Sprite2D" parent="Visuals"]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0)
+scale = Vector2(0.88, 0.88)
+texture = ExtResource("7_gxugg")
 
 [node name="AttackSprite" type="Sprite2D" parent="Visuals"]
 unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0)
-position = Vector2(929, 0)
-scale = Vector2(28.2812, 0.59375)
-texture = SubResource("GradientTexture2D_wpywg")
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(1884, 0)
+scale = Vector2(1.00857, 1)
+texture = ExtResource("7_85jer")
 
 [node name="AttackIndicatorSprite" type="Sprite2D" parent="Visuals"]
 unique_name_in_owner = true
-position = Vector2(929, 0)
-scale = Vector2(28.2812, 0.09375)
+position = Vector2(1942, 0)
+scale = Vector2(60, 0.094)
 texture = SubResource("GradientTexture2D_hgd61")
+
+[node name="PlayerSprite" type="Sprite2D" parent="Visuals"]
+unique_name_in_owner = true
+rotation = 1.5708
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_8jufa")

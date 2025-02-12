@@ -8,7 +8,7 @@ signal health_decreased
 
 @onready var current_health: float = max_health
 
-@export var max_health: float = 10
+@export var max_health: float = 1
 @export var is_invulnerable: bool = false
 
 

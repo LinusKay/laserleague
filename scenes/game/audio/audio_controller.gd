@@ -5,14 +5,6 @@ const VOL_INCREASE_HOLD = -15.0
 const VOL_INCREASE_RELEASE = 0.0
 const VOL_NORM = -50.0
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 func _on_player_1_attack_start() -> void:
 	_audio_rise_attack(%AudioSynthArp, VOL_INCREASE_HOLD, 30.0)

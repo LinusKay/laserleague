@@ -24,6 +24,14 @@ ScreenTransition="*res://scenes/ui/screen_transition/screen_transition.tscn"
 
 gdscript/warnings/untyped_declaration=2
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/window_width_override=1152
+window/size/window_height_override=648
+window/stretch/mode="viewport"
+
 [input]
 
 move_left={
@@ -91,3 +99,5 @@ attack={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="gl_compatibility"
+viewport/hdr_2d=true

@@ -4,7 +4,9 @@ class_name RotationComponent
 @onready var target: Node2D = %Target
 
 @export var max_rotation_speed: float = 10
-@export var acceleration: float = 1
+@export var acceleration: float = 1:
+	set(value):
+		acceleration = max(0, value)
 
 
 func rotate_towards_position(target_position: Vector2, node: Node2D) -> void:
