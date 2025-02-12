@@ -110,7 +110,6 @@ libraries = {
 
 [node name="VelocityComponent" parent="." instance=ExtResource("2_ca1t2")]
 unique_name_in_owner = true
-max_speed = 400.0
 acceleration = 20.0
 
 [node name="RotationComponent" parent="." instance=ExtResource("3_nbjmg")]

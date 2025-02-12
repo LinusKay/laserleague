@@ -11,9 +11,6 @@ extends CharacterBody2D
 @export_flags_2d_physics var hurt_collision_mask: int
 @export_flags_2d_physics var attack_hit_collision_layer: int
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
-
 const ATTACK_SPRITE_Y_BASE = 0.594
 const ATTACK_INDICATOR_SPRITE_Y_BASE = 0.094
 const ATTACK_SPRITE_Y_INCREASE = 0.005
@@ -56,8 +53,13 @@ func _process(delta: float) -> void:
 		+ "\nAttack Sprite Scale: " + str(%AttackSprite.scale.y)
 		+ "\nAttack Indicator Sprite Scale: " + str(%AttackIndicatorSprite.scale.y)
 		)
+		velocity_component.limit_speed(attack_power * 20)
+		
 	if Input.is_action_just_released("attack") and !is_attacking:
 		attack()
+		var bounce_direction := -transform.x.normalized() 
+		var bounce_speed := 5000 * attack_power 
+		velocity_component.accelerate_in_direction(bounce_direction, bounce_speed)
 
 
 func attack() -> void:
@@ -75,6 +77,7 @@ func attack() -> void:
 	%AttackSprite.scale.y = ATTACK_SPRITE_Y_BASE
 	%AttackIndicatorSprite.scale.y = ATTACK_INDICATOR_SPRITE_Y_BASE
 	attack_power = ATTACK_POWER_BASE
+	velocity_component.reset_speed()
 
 
 func attack_screen_shake() -> void:

@@ -3,7 +3,9 @@
 extends Node
 class_name VelocityComponent
 
-@export var max_speed: float = 40
+@export var max_speed: float = 400
+@export var min_speed: float = 10
+@export var speed: float = max_speed
 @export var acceleration: float = 5
 
 var velocity: Vector2 = Vector2.ZERO
@@ -30,7 +32,7 @@ func accelerate_in_direction(direction: Vector2, custom_speed: float = 0) -> voi
 	if custom_speed:
 		desired_velocity = direction * custom_speed
 	else:
-		desired_velocity = direction * max_speed
+		desired_velocity = direction * speed
 	# fi-lerp velocity towards the desired velocity
 	velocity = velocity.lerp(desired_velocity, 1 - exp(-acceleration * get_process_delta_time()))
 
@@ -46,3 +48,9 @@ func move(character_body: CharacterBody2D) -> void:
 	# then set velocity to the resulting body velocity after sliding
 	# this just makes sure they're always the same
 	velocity = character_body.velocity
+
+func limit_speed(_decelerate_amount: float) -> void:
+	speed = clampf(max_speed - _decelerate_amount, min_speed, max_speed)
+	
+func reset_speed() -> void:
+	speed = max_speed
