@@ -12,7 +12,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	print(volume_db)
 	pass
 
 
@@ -36,5 +35,4 @@ func _audio_rise_attack(_audio_node: AudioStreamPlayer, _vol_increase: float) ->
 		vol_tween.kill()
 	vol_tween = create_tween()
 	vol_tween.tween_property(_audio_node, "volume_db", VOL_NORM, 5.0)
-	print("audio increase")
 	pass

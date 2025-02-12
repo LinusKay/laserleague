@@ -14,12 +14,16 @@ extends CharacterBody2D
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
+const ATTACK_SPRITE_Y_BASE = 0.594
+const ATTACK_SPRITE_Y_INCREASE = 0.005
+const ATTACK_POWER_BASE = 1.0
+const ATTACK_POWER_INCREASE = 0.01
+
 var last_targeted_rotation: Vector2
 var is_attacking: bool = false
 var is_charging: bool = false
 
-var attack_power: float = 1.0
-var attack_power_increase: float = 0.01
+var attack_power: float = ATTACK_POWER_BASE
 
 signal attacked
 signal attack_start
@@ -43,8 +47,10 @@ func _process(delta: float) -> void:
 	if Input.is_action_pressed("attack") and !is_attacking:
 		if !is_charging: emit_signal("attack_start")
 		is_charging = true
-		attack_power += attack_power_increase
-		print(attack_power)
+		attack_power += ATTACK_POWER_INCREASE
+		print("Attack Power: " + str(attack_power))
+		%AttackSprite.scale.y += ATTACK_SPRITE_Y_INCREASE
+		print("Attack Sprite Scale: " + str(%AttackSprite.scale.y))
 	
 	if Input.is_action_just_released("attack") and !is_attacking:
 		attack()
@@ -57,6 +63,8 @@ func attack() -> void:
 	await animation_player.animation_finished
 	is_attacking = false
 	is_charging = false
+	%AttackSprite.scale.y = ATTACK_SPRITE_Y_BASE
+	attack_power = ATTACK_POWER_BASE
 
 
 func attack_screen_shake() -> void:
