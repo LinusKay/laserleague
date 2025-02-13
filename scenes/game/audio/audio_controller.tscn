@@ -1,12 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://c3hmrg38vg16t"]
+[gd_scene load_steps=5 format=3 uid="uid://c3hmrg38vg16t"]
 
 [ext_resource type="AudioStream" uid="uid://d34e7gu55e5hh" path="res://assets/sounds/draindance_backing.ogg" id="1_7j6wp"]
 [ext_resource type="AudioStream" uid="uid://c4aknrcmhjw2w" path="res://assets/sounds/draindance_synth.ogg" id="2_cwlui"]
+[ext_resource type="Script" path="res://scenes/game/audio/audio_controller.gd" id="2_yeuso"]
 [ext_resource type="AudioStream" uid="uid://c4ees54tl3ggo" path="res://assets/sounds/draindance_syntharp.ogg" id="3_3k5s6"]
 
 [node name="AudioBack" type="AudioStreamPlayer"]
 stream = ExtResource("1_7j6wp")
 bus = &"music"
+script = ExtResource("2_yeuso")
 
 [node name="AudioSynthCrunch" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true

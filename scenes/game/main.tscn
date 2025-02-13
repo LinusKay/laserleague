@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://uxj3i2lrm6j4"]
+[gd_scene load_steps=11 format=3 uid="uid://uxj3i2lrm6j4"]
 
 [ext_resource type="Shader" path="res://theme/shaders/glow.gdshader" id="1_81xtn"]
 [ext_resource type="PackedScene" uid="uid://khvjseslaxyg" path="res://scenes/game/camera/camera.tscn" id="1_lfyy7"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://dxd67g8sahn4v" path="res://scenes/ui/pause_menu/pause_menu.tscn" id="2_1swgi"]
 [ext_resource type="PackedScene" uid="uid://bcte6351a6gbb" path="res://scenes/game/player/player.tscn" id="2_dasuy"]
 [ext_resource type="PackedScene" uid="uid://c3hmrg38vg16t" path="res://scenes/game/audio/audio_controller.tscn" id="5_n2kco"]
-[ext_resource type="Script" path="res://scenes/game/audio/audio_controller.gd" id="6_o68kx"]
 [ext_resource type="Theme" uid="uid://kj7612otfuem" path="res://theme/gameplay_theme.tres" id="7_34in0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qml0l"]
@@ -40,7 +39,6 @@ mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="AudioController" parent="." instance=ExtResource("5_n2kco")]
-script = ExtResource("6_o68kx")
 
 [node name="Camera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_lfyy7")]
 position = Vector2(960, 540)

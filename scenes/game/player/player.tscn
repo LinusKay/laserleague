@@ -141,7 +141,6 @@ fill_to = Vector2(0, 0)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_0y1be")
-controller_id = null
 hurt_collision_mask = 2
 attack_hit_collision_layer = 4
 death_particle_scene = ExtResource("10_k10vx")

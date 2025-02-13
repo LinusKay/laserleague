@@ -18,7 +18,7 @@ func _ready() -> void:
 	Global.add_screen_shake_signal.connect(on_add_screen_shake_signal)
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	process_screen_shake()
 
 

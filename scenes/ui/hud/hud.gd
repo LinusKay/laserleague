@@ -7,7 +7,7 @@ extends Control
 @export var player_b: Player
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if player_a != null:
 		var target_value: float = clampf(player_a.attack_power, 0, 1)
 		player_a_charge_bar.value = lerpf(player_a_charge_bar.value, target_value, 0.2)
