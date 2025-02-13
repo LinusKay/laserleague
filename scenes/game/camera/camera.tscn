@@ -1,6 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://khvjseslaxyg"]
+[gd_scene load_steps=3 format=3 uid="uid://khvjseslaxyg"]
 
 [ext_resource type="Script" path="res://scenes/game/camera/camera.gd" id="1_l6ems"]
+[ext_resource type="PackedScene" uid="uid://cctgpcslry8qq" path="res://scenes/game/components/screen_shake_component.tscn" id="2_u74t7"]
 
 [node name="Camera" type="Camera2D"]
+ignore_rotation = false
 script = ExtResource("1_l6ems")
+
+[node name="ScreenShakeComponent" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("2_u74t7")]
+unique_name_in_owner = true
+camera = NodePath("..")
+SHAKE_MAX_OFFSET = Vector2(200, 150)
+
+[node name="AmbientShakeComponent" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("2_u74t7")]
+unique_name_in_owner = true
+camera = NodePath("..")
+SHAKE_BASE_STRENGTH = 1.0
+auto_decrement_shake = false

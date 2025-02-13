@@ -140,7 +140,7 @@ func attack() -> void:
 	attack_hitbox_component.damage = attack_power
 	animation_player.play("attack")
 	emit_signal("attacked", attack_power)
-	Global.add_screen_shake(10 * attack_power)
+	Global.add_screen_shake(attack_power / 2)
 	is_attacking = true
 	await animation_player.animation_finished
 	is_attacking = false

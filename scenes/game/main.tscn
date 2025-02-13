@@ -40,9 +40,8 @@ metadata/_edit_use_anchors_ = true
 
 [node name="AudioController" parent="." instance=ExtResource("5_n2kco")]
 
-[node name="Camera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_lfyy7")]
+[node name="Camera" parent="." instance=ExtResource("1_lfyy7")]
 position = Vector2(960, 540)
-target = NodePath("../World")
 
 [node name="World" type="Node2D" parent="."]
 position = Vector2(960, 540)
@@ -105,10 +104,10 @@ shape = SubResource("WorldBoundaryShape2D_klpgj")
 [node name="Background" type="Panel" parent="World/Arena"]
 z_index = -5
 layout_mode = 0
-offset_left = -1000.0
-offset_top = -583.0
-offset_right = 1001.0
-offset_bottom = 583.0
+offset_left = -3000.0
+offset_top = -3000.0
+offset_right = 3000.0
+offset_bottom = 3000.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_a0e55")
 metadata/_edit_use_anchors_ = true
 

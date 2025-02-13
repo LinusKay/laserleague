@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cctgpcslry8qq"]
+
+[ext_resource type="Script" path="res://scenes/game/components/screen_shake_component.gd" id="1_oi01r"]
+
+[node name="ScreenShakeComponent" type="Node"]
+script = ExtResource("1_oi01r")

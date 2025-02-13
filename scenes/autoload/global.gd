@@ -17,6 +17,7 @@ func _input(_event: InputEvent) -> void:
 		if OS.is_debug_build():
 			get_tree().reload_current_scene()
 
+
 func toggle_fullscreen() -> void:
 	var current_mode: DisplayServer.WindowMode = DisplayServer.window_get_mode()
 	if current_mode != DisplayServer.WINDOW_MODE_FULLSCREEN:
