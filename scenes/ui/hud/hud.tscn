@@ -1,10 +1,81 @@
-[gd_scene load_steps=6 format=3 uid="uid://bwcskp1hsvfuj"]
+[gd_scene load_steps=11 format=3 uid="uid://bwcskp1hsvfuj"]
 
 [ext_resource type="Script" path="res://scenes/ui/hud/hud.gd" id="1_041k3"]
 [ext_resource type="Texture2D" uid="uid://bmkqorbji4trj" path="res://assets/sprites/charge_bar.svg" id="2_p17a0"]
 [ext_resource type="Texture2D" uid="uid://bcxsb2eveq0og" path="res://assets/sprites/charge_bar_fill.svg" id="3_4324r"]
 [ext_resource type="Texture2D" uid="uid://fmk10gw3lcon" path="res://assets/sprites/health_bar.svg" id="4_bu0ed"]
 [ext_resource type="Texture2D" uid="uid://ceaf5nthlt40g" path="res://assets/sprites/health_bar_fill.svg" id="5_0rq43"]
+[ext_resource type="FontFile" uid="uid://bf6vrh8vugngu" path="res://theme/fonts/Robot Crush.ttf" id="6_v546w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e7y4l"]
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_xwsvj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WinLabel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WinLabel:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_u418x"]
+resource_name = "win"
+length = 2.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WinLabel:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.55, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WinLabel:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.232275, 0.268498, 0.2875, 0.3125),
+"transitions": PackedFloat32Array(2.82843, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(5, 5), Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1), Vector2(1.05, 1.05), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2tr2n"]
+_data = {
+"RESET": SubResource("Animation_xwsvj"),
+"win": SubResource("Animation_u418x")
+}
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -14,6 +85,320 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_041k3")
+
+[node name="GridBackground" type="GridContainer" parent="."]
+modulate = Color(1, 1, 1, 0.0588235)
+z_index = -10
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 10
+
+[node name="Panel" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel2" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel3" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel4" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel5" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel6" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel7" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel8" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel9" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel10" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel11" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel12" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel13" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel14" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel15" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel16" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel17" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel18" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel19" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel20" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel21" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel22" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel23" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel24" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel25" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel26" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel27" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel28" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel29" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel30" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel31" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel32" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel33" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel34" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel35" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel36" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel37" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel38" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel39" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel40" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel41" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel42" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel43" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel44" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel45" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel46" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel47" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel48" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel49" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel50" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel51" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel52" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel53" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel54" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel55" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel56" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel57" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel58" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel59" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
+
+[node name="Panel60" type="Panel" parent="GridBackground"]
+custom_minimum_size = Vector2(174, 163)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -79,7 +464,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 0
-min_value = -0.2
+min_value = -0.3
 max_value = 1.2
 step = 0.0
 value = 1.0
@@ -90,7 +475,7 @@ stretch_margin_right = 100
 stretch_margin_bottom = 100
 texture_under = ExtResource("4_bu0ed")
 texture_progress = ExtResource("5_0rq43")
-tint_under = Color(8.108, 0.3, 0.1, 1)
+tint_under = Color(4, 0.3, 0.1, 1)
 tint_progress = Color(25.405, 17.838, 4.324, 1)
 
 [node name="PlayerBHealthBar" type="TextureProgressBar" parent="MarginContainer/VBoxContainer/MarginContainer2"]
@@ -98,7 +483,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 8
-min_value = -0.2
+min_value = -0.3
 max_value = 1.2
 step = 0.0
 value = 1.0
@@ -109,5 +494,121 @@ stretch_margin_right = 100
 stretch_margin_bottom = 100
 texture_under = ExtResource("4_bu0ed")
 texture_progress = ExtResource("5_0rq43")
-tint_under = Color(0, 5.946, 10.811, 1)
+tint_under = Color(0, 5.946, 4, 1)
 tint_progress = Color(1.082, 17.838, 30.27, 1)
+
+[node name="ScoresContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 510
+alignment = 1
+
+[node name="ScoreLabelA" type="Label" parent="ScoresContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.45, 0.45, 1)
+theme_override_fonts/font = ExtResource("6_v546w")
+theme_override_font_sizes/font_size = 501
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreLabelB" type="Label" parent="ScoresContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.45, 0.45, 1)
+theme_override_fonts/font = ExtResource("6_v546w")
+theme_override_font_sizes/font_size = 501
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WinScreen" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WinAnimationPlayer" type="AnimationPlayer" parent="WinScreen"]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_2tr2n")
+}
+
+[node name="ColorRect" type="ColorRect" parent="WinScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.681)
+
+[node name="WinLabel" type="Control" parent="WinScreen"]
+layout_mode = 1
+anchors_preset = 0
+pivot_offset = Vector2(960, 540)
+
+[node name="WinLabelA" type="RichTextLabel" parent="WinScreen/WinLabel"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(1920, 880)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 80.0
+offset_right = 1900.0
+offset_bottom = 960.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.179769
+pivot_offset = Vector2(960, 440)
+mouse_filter = 2
+theme_override_colors/default_color = Color(4, 0.2, 0, 1)
+theme_override_fonts/normal_font = ExtResource("6_v546w")
+theme_override_font_sizes/normal_font_size = 400
+bbcode_enabled = true
+text = "[center][wave amp=20.0 freq=10.0 connected=1]ORANGE
+WINS"
+scroll_active = false
+autowrap_mode = 0
+
+[node name="WinLabelB" type="RichTextLabel" parent="WinScreen/WinLabel"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(1920, 880)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 80.0
+offset_right = 1900.0
+offset_bottom = 960.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.179769
+pivot_offset = Vector2(960, 440)
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 1.622, 4.324, 1)
+theme_override_fonts/normal_font = ExtResource("6_v546w")
+theme_override_font_sizes/normal_font_size = 400
+bbcode_enabled = true
+text = "[center][wave amp=20.0 freq=10.0 connected=1]BLUE
+WINS"
+scroll_active = false
+autowrap_mode = 0

@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqhk50a1jynas"]
+
+[ext_resource type="PackedScene" uid="uid://cilrw0r4b7oq0" path="res://scenes/arena/arena_block_small.tscn" id="1_2a6fw"]
+
+[node name="ArenaLayout" type="Node2D"]
+
+[node name="ArenaBlockSmall" parent="." instance=ExtResource("1_2a6fw")]
+
+[node name="ArenaBlockSmall6" parent="." instance=ExtResource("1_2a6fw")]
+position = Vector2(0, -250)
+
+[node name="ArenaBlockSmall7" parent="." instance=ExtResource("1_2a6fw")]
+position = Vector2(-250, -250)
+
+[node name="ArenaBlockSmall8" parent="." instance=ExtResource("1_2a6fw")]
+position = Vector2(250, -250)
+
+[node name="ArenaBlockSmall9" parent="." instance=ExtResource("1_2a6fw")]
+position = Vector2(500, -250)
+
+[node name="ArenaBlockSmall10" parent="." instance=ExtResource("1_2a6fw")]
+position = Vector2(-500, -250)
+
+[node name="ArenaBlockSmall11" parent="." instance=ExtResource("1_2a6fw")]
+position = Vector2(0, 250)
+
+[node name="ArenaBlockSmall12" parent="." instance=ExtResource("1_2a6fw")]
+position = Vector2(-250, 250)
+
+[node name="ArenaBlockSmall13" parent="." instance=ExtResource("1_2a6fw")]
+position = Vector2(250, 250)
+
+[node name="ArenaBlockSmall14" parent="." instance=ExtResource("1_2a6fw")]
+position = Vector2(500, 250)
+
+[node name="ArenaBlockSmall15" parent="." instance=ExtResource("1_2a6fw")]
+position = Vector2(-500, 250)

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://djg8lilfsg1it"]
+
+[ext_resource type="PackedScene" uid="uid://deyiofd66wdmy" path="res://scenes/arena/arena_block_large.tscn" id="1_5f53h"]
+
+[node name="ArenaLayout" type="Node2D"]
+
+[node name="ArenaBlockMed" parent="." instance=ExtResource("1_5f53h")]
+rotation = 0.785398

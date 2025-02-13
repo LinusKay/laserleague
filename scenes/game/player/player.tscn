@@ -141,9 +141,11 @@ fill_to = Vector2(0, 0)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_0y1be")
+player_index = null
+hp_pulse_color = Color(3, 3, 3, 1)
 death_particle_scene = ExtResource("10_k10vx")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AttackAnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_tjs8d")
@@ -161,6 +163,10 @@ unique_name_in_owner = true
 
 [node name="AttackCooldownTimer" type="Timer" parent="."]
 unique_name_in_owner = true
+
+[node name="DashCooldownTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_1qur0")
@@ -213,9 +219,5 @@ unique_name_in_owner = true
 rotation = 1.5708
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_8jufa")
-
-[node name="DashCooldownTimer" type="Timer" parent="."]
-unique_name_in_owner = true
-one_shot = true
 
 [connection signal="timeout" from="DashCooldownTimer" to="." method="_on_dash_cooldown_timer_timeout"]

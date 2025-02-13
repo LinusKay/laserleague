@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://crciju2ktvnwq"]
+
+[ext_resource type="PackedScene" uid="uid://dcjkk8xrgdwrf" path="res://scenes/arena/arena_block_tall.tscn" id="1_gi1mw"]
+
+[node name="ArenaLayout" type="Node2D"]
+
+[node name="ArenaBlockTall" parent="." instance=ExtResource("1_gi1mw")]
+position = Vector2(0, -200)
+rotation = 1.5708
+
+[node name="ArenaBlockTall2" parent="." instance=ExtResource("1_gi1mw")]
+position = Vector2(0, 200)
+rotation = 1.5708

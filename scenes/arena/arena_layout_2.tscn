@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://1555kaesd61n"]
+
+[ext_resource type="PackedScene" uid="uid://cilrw0r4b7oq0" path="res://scenes/arena/arena_block_small.tscn" id="1_fctfd"]
+
+[node name="ArenaLayout" type="Node2D"]
+
+[node name="ArenaBlockSmall" parent="." instance=ExtResource("1_fctfd")]
+position = Vector2(-300, 300)
+
+[node name="ArenaBlockSmall2" parent="." instance=ExtResource("1_fctfd")]
+position = Vector2(300, 300)
+
+[node name="ArenaBlockSmall3" parent="." instance=ExtResource("1_fctfd")]
+position = Vector2(-300, -300)
+
+[node name="ArenaBlockSmall4" parent="." instance=ExtResource("1_fctfd")]
+position = Vector2(300, -300)

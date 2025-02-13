@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://uxj3i2lrm6j4"]
+[gd_scene load_steps=12 format=3 uid="uid://uxj3i2lrm6j4"]
 
 [ext_resource type="Shader" path="res://theme/shaders/glow.gdshader" id="1_81xtn"]
 [ext_resource type="PackedScene" uid="uid://khvjseslaxyg" path="res://scenes/game/camera/camera.tscn" id="1_lfyy7"]
+[ext_resource type="Script" path="res://scenes/game/main.gd" id="1_lylo6"]
 [ext_resource type="PackedScene" uid="uid://bwcskp1hsvfuj" path="res://scenes/ui/hud/hud.tscn" id="1_x7l61"]
 [ext_resource type="PackedScene" uid="uid://dxd67g8sahn4v" path="res://scenes/ui/pause_menu/pause_menu.tscn" id="2_1swgi"]
 [ext_resource type="PackedScene" uid="uid://bcte6351a6gbb" path="res://scenes/game/player/player.tscn" id="2_dasuy"]
@@ -21,6 +22,7 @@ shader_parameter/unit = Vector2(1, 1)
 bg_color = Color(0, 0, 0, 1)
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_lylo6")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -47,8 +49,8 @@ position = Vector2(960, 540)
 position = Vector2(960, 540)
 
 [node name="PlayerA" parent="World" groups=["Player"] instance=ExtResource("2_dasuy")]
-position = Vector2(-399, -187)
-rotation = 0.45093
+position = Vector2(-550, 0)
+player_index = 0
 player_name = "Orange"
 player_color = Color(8.108, 0.21, 0, 1)
 player_attack_color = Color(25.405, 17.838, 4.324, 1)
@@ -57,12 +59,14 @@ hurt_collision_mask = 4
 attack_hit_collision_layer = 2
 
 [node name="PlayerB" parent="World" groups=["Player"] instance=ExtResource("2_dasuy")]
-modulate = Color(0.2, 0.92, 1, 1)
-rotation = -1.5708
+position = Vector2(550, 0)
+rotation = 3.14159
+player_index = 1
 player_name = "Blue"
-player_color = Color(0, 5.946, 10.811, 1)
+player_color = Color(0.1, 2, 8.108, 1)
 player_attack_color = Color(1.082, 17.838, 30.27, 1)
 player_attack_ind_color = Color(0.4, 0.8, 2, 1)
+controller_id = 1
 hurt_collision_mask = 2
 attack_hit_collision_layer = 4
 
@@ -77,6 +81,17 @@ custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 1
 player_a = NodePath("../../PlayerA")
 player_b = NodePath("../../PlayerB")
+metadata/_edit_use_anchors_ = true
+
+[node name="Frame" type="Panel" parent="World/Arena"]
+modulate = Color(25, 25, 25, 0.647)
+layout_mode = 1
+offset_left = -708.0
+offset_top = -500.0
+offset_right = 708.0
+offset_bottom = 500.0
+mouse_filter = 2
+theme = ExtResource("7_34in0")
 metadata/_edit_use_anchors_ = true
 
 [node name="Collision" type="StaticBody2D" parent="World/Arena"]
@@ -102,7 +117,7 @@ rotation = 3.14159
 shape = SubResource("WorldBoundaryShape2D_klpgj")
 
 [node name="Background" type="Panel" parent="World/Arena"]
-z_index = -5
+z_index = -15
 layout_mode = 0
 offset_left = -3000.0
 offset_top = -3000.0
@@ -110,17 +125,10 @@ offset_right = 3000.0
 offset_bottom = 3000.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_a0e55")
 metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
 
-[node name="Frame" type="Panel" parent="World/Arena"]
-modulate = Color(25, 25, 25, 0.647)
-layout_mode = 1
-offset_left = -708.0
-offset_top = -500.0
-offset_right = 708.0
-offset_bottom = 500.0
-mouse_filter = 2
-theme = ExtResource("7_34in0")
-metadata/_edit_use_anchors_ = true
+[node name="ArenaLayoutContainer" type="Node2D" parent="World/Arena"]
+unique_name_in_owner = true
 
 [node name="LayerFX" type="Node2D" parent="World" groups=["LayerFX"]]
 
