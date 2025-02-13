@@ -32,6 +32,7 @@ const SECONDS_UNTIL_MAX_DAMAGE = 5.0
 const ROTATION_ACCELERATION_BASE = 1.0
 const ROTATION_ACCELERATION_DECREASE = 0.5
 const VELOCITY_DECREASE = 0.5
+const DASH_DECREASE_SCALE = 3.5
 
 const JOY_DEADZONE = 0.2
 
@@ -170,16 +171,17 @@ func bounce_back() -> void:
 	var bounce_direction := -transform.x.normalized() 
 	var bounce_speed := 5000 * attack_power 
 	velocity_component.accelerate_in_direction(bounce_direction, bounce_speed)
-	
+
+
 func dash(_direction: String) -> void:
 	is_dashing = true
 	var dash_direction: Vector2 = Vector2.ZERO
-	print(transform.y.x)
+	#print(transform.y.x)
 	if _direction == "left":
 		dash_direction = -transform.y.normalized()
 	else:
 		dash_direction = transform.y.normalized()
-	var dash_speed := 30000
+	var dash_speed := 30000 / (1 + attack_power * DASH_DECREASE_SCALE)
 	velocity_component.accelerate_in_direction(dash_direction, dash_speed)
 	%DashCooldownTimer.start()
 
