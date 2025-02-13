@@ -54,7 +54,6 @@ player_name = "Player1"
 player_color = Color(8.108, 0.21, 0, 1)
 player_attack_color = Color(25.405, 17.838, 4.324, 1)
 player_attack_ind_color = Color(2, 0.6, 0.4, 1)
-controller_id = 0
 hurt_collision_mask = 4
 attack_hit_collision_layer = 2
 
