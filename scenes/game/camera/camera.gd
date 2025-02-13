@@ -1,11 +1,14 @@
 extends Camera2D
 
-@export var target: Node2D = null
-@export var screen_shake_amount: float = 0.0
 @export var screen_shake_decay_rate: float = 1.0
 @export var max_screen_shake: float = 200
 var screen_shake_offset: Vector2 = Vector2(0.0, 0.0)
 @export var screen_shake_interval: float = 0.05
+
+@export var target: Node2D = null
+@export var decay: float = 0.8  # How quickly the shaking stops [0, 1].
+@export var max_offset: Vector2 = Vector2(100, 75)  # Maximum hor/ver shake in pixels.
+@export var max_roll: float = 0.1  # Maximum rotation in radians (use sparingly).
 
 @onready var camera: Camera2D = self
 var camera_offset: Vector2 = Vector2.ZERO
@@ -14,7 +17,6 @@ var screen_shake_current: float = screen_shake_interval
 
 
 func _ready() -> void:
-	if camera == null: push_error("ScreenShake: Camera not assigned!")
 	Global.add_screen_shake_signal.connect(on_add_screen_shake_signal)
 
 
@@ -23,6 +25,7 @@ func _process(_delta: float) -> void:
 
 
 func add_screen_shake(amount: float) -> void:
+	print("total " + str(screen_shake_current) + " screenshake")
 	if screen_shake_current <= max_screen_shake:
 		screen_shake_current += amount
 	if screen_shake_current > max_screen_shake:
@@ -30,17 +33,7 @@ func add_screen_shake(amount: float) -> void:
 
 
 func process_screen_shake() -> void:
-	screen_shake_current -= get_process_delta_time() * screen_shake_decay_rate
-	
-	if screen_shake_current > 0:
-		screen_shake_offset = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0))
-		#screen_shake_current = screen_shake_interval
-		var shake: Vector2 = screen_shake_offset * screen_shake_amount * screen_shake_current
-		
-		if target != null:
-			camera.global_position = lerp(camera.global_position, target.global_position + Vector2(camera_offset.x, camera_offset.y), 0.3) + Vector2(shake.x, shake.y)
-	else:
-		screen_shake_current = 0 
+	pass
 
 func on_add_screen_shake_signal(amount: float) -> void:
 	add_screen_shake(amount)

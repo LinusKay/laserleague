@@ -141,8 +141,6 @@ fill_to = Vector2(0, 0)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_0y1be")
-hurt_collision_mask = 2
-attack_hit_collision_layer = 4
 death_particle_scene = ExtResource("10_k10vx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -170,7 +168,7 @@ shape = SubResource("CircleShape2D_1qur0")
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_s83lb")]
 unique_name_in_owner = true
 collision_layer = 0
-collision_mask = 2
+collision_mask = 0
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
@@ -178,7 +176,7 @@ shape = SubResource("CircleShape2D_fm5mr")
 
 [node name="AttackHitboxComponent" parent="." instance=ExtResource("7_t88sx")]
 unique_name_in_owner = true
-collision_layer = 2
+collision_layer = 0
 collision_mask = 0
 damage = 1.0
 

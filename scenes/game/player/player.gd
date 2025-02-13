@@ -26,7 +26,7 @@ class_name Player
 const ATTACK_SPRITE_Y_BASE = 0.05
 const ATTACK_INDICATOR_SPRITE_Y_BASE = 0.094
 const ATTACK_SPRITE_SCALE_INCREASE = 1.0
-const ATTACK_HITBOX_SCALE_INCREASE = 1.0
+const ATTACK_HITBOX_SCALE_INCREASE = 1.5
 const ATTACK_POWER_BASE = 0.01
 const SECONDS_UNTIL_MAX_DAMAGE = 5.0
 const ROTATION_ACCELERATION_BASE = 1.0
@@ -54,7 +54,7 @@ func _ready() -> void:
 	%AttackSprite.modulate = player_attack_color
 	%AttackIndicatorSprite.modulate = player_attack_ind_color
 	
-	hurtbox_component.collision_layer = hurt_collision_mask
+	hurtbox_component.collision_mask = hurt_collision_mask
 	attack_hitbox_component.collision_layer = attack_hit_collision_layer
 
 	health_component.died.connect(on_died)
@@ -140,7 +140,7 @@ func attack() -> void:
 	attack_hitbox_component.damage = attack_power
 	animation_player.play("attack")
 	emit_signal("attacked", attack_power)
-	attack_screen_shake()
+	Global.add_screen_shake(10 * attack_power)
 	is_attacking = true
 	await animation_player.animation_finished
 	is_attacking = false
@@ -152,18 +152,15 @@ func attack() -> void:
 	attack_power = ATTACK_POWER_BASE
 	velocity_component.reset_speed()
 	rotation_component.acceleration = ROTATION_ACCELERATION_BASE
-	
-
-
-func attack_screen_shake() -> void:
-	if Engine.is_editor_hint(): return
-	Global.add_screen_shake(100)
 
 
 func on_died() -> void:
 	print(player_name + " died!")
 	var death_particle_instance: GPUParticles2D = death_particle_scene.instantiate()
+	
 	if layer_fx: layer_fx.add_child(death_particle_instance)
+	else: push_error("player: layer_fx not found!"); return
+	
 	death_particle_instance.global_position = global_position
 	death_particle_instance.modulate = player_attack_color
 	queue_free()
