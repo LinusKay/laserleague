@@ -51,7 +51,6 @@ position = Vector2(960, 540)
 [node name="PlayerA" parent="World" node_paths=PackedStringArray("audio_controller") groups=["Player"] instance=ExtResource("2_dasuy")]
 position = Vector2(-550, 0)
 audio_controller = NodePath("../../AudioController")
-player_index = 0
 player_name = "Orange"
 player_color = Color(8.108, 0.21, 0, 1)
 player_attack_color = Color(25.405, 17.838, 4.324, 1)

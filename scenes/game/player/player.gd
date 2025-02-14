@@ -44,6 +44,7 @@ const ROTATION_ACCELERATION_DECREASE = 0.5
 const VELOCITY_DECREASE = 0.5
 const DASH_STRENGTH = 30
 const DASH_DECREASE_SCALE = 3.5
+const CHARGE_SELF_DAMAGE = 0.01
 
 const JOY_DEADZONE = 0.2
 
@@ -129,6 +130,7 @@ func _process(delta: float) -> void:
 		if !is_charging: emit_signal("attack_start")
 		is_charging = true
 		attack_power += get_process_delta_time() / SECONDS_UNTIL_MAX_DAMAGE
+		if attack_power > 1: health_component.damage(CHARGE_SELF_DAMAGE)
 		%AttackSprite.scale.y += ATTACK_SPRITE_SCALE_INCREASE * delta
 		%AttackSpriteHead.scale += Vector2(ATTACK_SPRITE_SCALE_INCREASE, ATTACK_SPRITE_SCALE_INCREASE) * 0.35 * delta
 		%AttackIndicatorSprite.scale.y += ATTACK_SPRITE_SCALE_INCREASE * delta
