@@ -48,8 +48,9 @@ position = Vector2(960, 540)
 [node name="World" type="Node2D" parent="."]
 position = Vector2(960, 540)
 
-[node name="PlayerA" parent="World" groups=["Player"] instance=ExtResource("2_dasuy")]
+[node name="PlayerA" parent="World" node_paths=PackedStringArray("audio_controller") groups=["Player"] instance=ExtResource("2_dasuy")]
 position = Vector2(-550, 0)
+audio_controller = NodePath("../../AudioController")
 player_index = 0
 player_name = "Orange"
 player_color = Color(8.108, 0.21, 0, 1)
@@ -58,9 +59,10 @@ player_attack_ind_color = Color(2, 0.6, 0.4, 1)
 hurt_collision_mask = 4
 attack_hit_collision_layer = 2
 
-[node name="PlayerB" parent="World" groups=["Player"] instance=ExtResource("2_dasuy")]
+[node name="PlayerB" parent="World" node_paths=PackedStringArray("audio_controller") groups=["Player"] instance=ExtResource("2_dasuy")]
 position = Vector2(550, 0)
 rotation = 3.14159
+audio_controller = NodePath("../../AudioController")
 player_index = 1
 player_name = "Blue"
 player_color = Color(0.1, 2, 8.108, 1)

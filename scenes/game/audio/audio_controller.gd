@@ -5,6 +5,18 @@ const VOL_INCREASE_HOLD = -15.0
 const VOL_INCREASE_RELEASE = 0.0
 const VOL_NORM = -50.0
 
+@onready var sfx_start: Resource = load("res://assets/sounds/sfx/sfx_start.ogg")
+
+func _ready() -> void:
+	play_sfx(sfx_start)
+
+func play_sfx(_sfx_file: Resource) -> void:
+	var audio_node: AudioStreamPlayer = AudioStreamPlayer.new()
+	add_child(audio_node)
+	audio_node.stream = _sfx_file
+	audio_node.play()
+	await audio_node.finished
+	audio_node.queue_free()
 
 func _on_player_1_attack_start() -> void:
 	_audio_rise_attack(%AudioSynthArp, VOL_INCREASE_HOLD, 30.0)

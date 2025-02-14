@@ -10,6 +10,14 @@ class_name Player
 @onready var attack_hitbox_component: HitboxComponent = %AttackHitboxComponent
 @onready var layer_fx: Node2D = get_tree().get_first_node_in_group("LayerFX")
 
+@onready var sfx_dash: Resource = load("res://assets/sounds/sfx/sfx_dash.ogg")
+@onready var sfx_died: Resource = load("res://assets/sounds/sfx/sfx_dash.ogg")
+@onready var sfx_win: Resource = load("res://assets/sounds/sfx/sfx_win.ogg")
+@onready var sfx_hit: Resource = load("res://assets/sounds/sfx/sfx_hit.ogg")
+@onready var sfx_miss: Resource = load("res://assets/sounds/sfx/sfx_miss.ogg")
+
+@export var audio_controller: AudioStreamPlayer
+
 @export var player_index: int
 @export var player_name: String = "Player"
 @export var are_controls_active: bool = true
@@ -43,6 +51,8 @@ var last_targeted_rotation: Vector2
 var is_attacking: bool = false
 var is_charging: bool = false
 var is_dashing: bool = false
+
+var attack_hit: bool = false
 
 var attack_power: float = ATTACK_POWER_BASE
 
@@ -137,16 +147,12 @@ func _process(delta: float) -> void:
 
 func attack() -> void:
 	if Engine.is_editor_hint(): return
-	#print("----------Attack Released!----------"\
-	#+ "\nAttack Power: " + str(attack_power)
-	#+ "\nAttack Sprite Scale: " + str(%AttackSprite.scale.y)
-	#+ "\nAttack Indicator Sprite Scale: " + str(%AttackIndicatorSprite.scale.y)
-	#)
 	attack_hitbox_component.damage = attack_power
 	attack_animation_player.play("attack")
 	emit_signal("attacked", attack_power)
 	Global.add_screen_shake(attack_power / 2)
 	is_attacking = true
+	
 	await attack_animation_player.animation_finished
 	is_attacking = false
 	is_charging = false
@@ -157,9 +163,15 @@ func attack() -> void:
 	attack_power = ATTACK_POWER_BASE
 	velocity_component.reset_speed()
 	rotation_component.acceleration = ROTATION_ACCELERATION_BASE
-
+	# But of a makeshift solution - is delayed since waiting for animation to complete
+	# If outside await then attack_hit doesnt update in time
+	if attack_hit: audio_controller.play_sfx(sfx_hit)
+	else: audio_controller.play_sfx(sfx_miss)
+	attack_hit = false
 
 func on_died() -> void:
+	audio_controller.play_sfx(sfx_died)
+	audio_controller.play_sfx(sfx_win)
 	print(player_name + " died!")
 	match player_index:
 		0:
@@ -185,6 +197,7 @@ func bounce_back() -> void:
 
 
 func dash(_direction: String) -> void:
+	audio_controller.play_sfx(sfx_died)
 	is_dashing = true
 	var dash_direction: Vector2 = Vector2.ZERO
 	#print(transform.y.x)

@@ -141,7 +141,6 @@ fill_to = Vector2(0, 0)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_0y1be")
-player_index = null
 hp_pulse_color = Color(3, 3, 3, 1)
 death_particle_scene = ExtResource("10_k10vx")
 

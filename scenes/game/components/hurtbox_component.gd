@@ -16,6 +16,7 @@ func on_area_entered(other_area: Area2D) -> void:
 	if health_component == null: return
 	
 	var hitbox_component: HitboxComponent = other_area
+	hitbox_component.get_parent().attack_hit = true
 	health_component.damage(hitbox_component.damage)
 	
 	taken_damage.emit(hitbox_component.damage)
