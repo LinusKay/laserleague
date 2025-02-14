@@ -17,7 +17,7 @@ var arena_layout_scenes: Array[String] = [
 
 func _ready() -> void:
 	spawn_layout()
-
+	AudioController.play_sfx(AudioController.SFX_START)
 
 func spawn_layout() -> void:
 	var layout_scene: PackedScene

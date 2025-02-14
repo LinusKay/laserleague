@@ -5,6 +5,12 @@ extends Node
 signal example
 func emit_example() -> void: example.emit()
 
+signal player_attack_charging(player_index: int, strength: float)
+func emit_player_attack_charging(player_index: int, strength: float) -> void: player_attack_charging.emit(player_index, strength)
+
+signal player_attack_released(player_index: int)
+func emit_player_attack_released(player_index: int) -> void: player_attack_released.emit(player_index)
+
 signal player_won_round(player_index: int)
 func emit_player_won_round(player_index: int) -> void: player_won_round.emit(player_index)
 

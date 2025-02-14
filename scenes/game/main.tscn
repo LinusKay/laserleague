@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://uxj3i2lrm6j4"]
+[gd_scene load_steps=11 format=3 uid="uid://uxj3i2lrm6j4"]
 
 [ext_resource type="Shader" path="res://theme/shaders/glow.gdshader" id="1_81xtn"]
 [ext_resource type="PackedScene" uid="uid://khvjseslaxyg" path="res://scenes/game/camera/camera.tscn" id="1_lfyy7"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://bwcskp1hsvfuj" path="res://scenes/ui/hud/hud.tscn" id="1_x7l61"]
 [ext_resource type="PackedScene" uid="uid://dxd67g8sahn4v" path="res://scenes/ui/pause_menu/pause_menu.tscn" id="2_1swgi"]
 [ext_resource type="PackedScene" uid="uid://bcte6351a6gbb" path="res://scenes/game/player/player.tscn" id="2_dasuy"]
-[ext_resource type="PackedScene" uid="uid://c3hmrg38vg16t" path="res://scenes/game/audio/audio_controller.tscn" id="5_n2kco"]
 [ext_resource type="Theme" uid="uid://kj7612otfuem" path="res://theme/gameplay_theme.tres" id="7_34in0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qml0l"]
@@ -40,36 +39,32 @@ grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="AudioController" parent="." instance=ExtResource("5_n2kco")]
-
 [node name="Camera" parent="." instance=ExtResource("1_lfyy7")]
 position = Vector2(960, 540)
 
 [node name="World" type="Node2D" parent="."]
 position = Vector2(960, 540)
 
-[node name="PlayerA" parent="World" node_paths=PackedStringArray("audio_controller") groups=["Player"] instance=ExtResource("2_dasuy")]
+[node name="PlayerA" parent="World" groups=["Player"] instance=ExtResource("2_dasuy")]
 position = Vector2(-550, 0)
-audio_controller = NodePath("../../AudioController")
-player_name = "Orange"
-player_color = Color(8.108, 0.21, 0, 1)
+player_color = Color(12.432, 0.3, 0, 1)
 player_attack_color = Color(25.405, 17.838, 4.324, 1)
-player_attack_ind_color = Color(2, 0.6, 0.4, 1)
-hurt_collision_mask = 4
-attack_hit_collision_layer = 2
-
-[node name="PlayerB" parent="World" node_paths=PackedStringArray("audio_controller") groups=["Player"] instance=ExtResource("2_dasuy")]
-position = Vector2(550, 0)
-rotation = 3.14159
-audio_controller = NodePath("../../AudioController")
-player_index = 1
-player_name = "Blue"
-player_color = Color(0.1, 2, 8.108, 1)
-player_attack_color = Color(1.082, 17.838, 30.27, 1)
-player_attack_ind_color = Color(0.4, 0.8, 2, 1)
+player_attack_ind_color = Color(8.108, 0.21, 0, 1)
+hp_pulse_color = Color(2, 0.6, 0.4, 1)
 controller_id = 1
 hurt_collision_mask = 2
 attack_hit_collision_layer = 4
+
+[node name="PlayerB" parent="World" groups=["Player"] instance=ExtResource("2_dasuy")]
+position = Vector2(550, 0)
+rotation = 3.14159
+player_index = 1
+player_color = Color(0.15, 4.865, 15.676, 1)
+player_attack_color = Color(1.082, 17.838, 30.27, 1)
+player_attack_ind_color = Color(0.3, 17.297, 30.811, 1)
+hp_pulse_color = Color(0.4, 0.8, 2, 1)
+hurt_collision_mask = 4
+attack_hit_collision_layer = 2
 
 [node name="Arena" type="Control" parent="World"]
 layout_mode = 3
@@ -132,8 +127,3 @@ metadata/_edit_lock_ = true
 unique_name_in_owner = true
 
 [node name="LayerFX" type="Node2D" parent="World" groups=["LayerFX"]]
-
-[connection signal="attack_start" from="World/PlayerA" to="AudioController" method="_on_player_1_attack_start"]
-[connection signal="attacked" from="World/PlayerA" to="AudioController" method="_on_player_1_attacked"]
-[connection signal="attack_start" from="World/PlayerB" to="AudioController" method="_on_player_2_attack_start"]
-[connection signal="attacked" from="World/PlayerB" to="AudioController" method="_on_player_2_attacked"]

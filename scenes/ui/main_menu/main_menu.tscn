@@ -1,6 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://dr2bxrghe3i0p"]
+[gd_scene load_steps=11 format=3 uid="uid://dr2bxrghe3i0p"]
 
 [ext_resource type="Script" path="res://scenes/ui/main_menu/main_menu.gd" id="1_eodw3"]
+[ext_resource type="Shader" path="res://theme/shaders/glow.gdshader" id="2_kk24k"]
+[ext_resource type="FontFile" uid="uid://bf6vrh8vugngu" path="res://theme/fonts/Robot Crush.ttf" id="2_skiej"]
+[ext_resource type="Shader" path="res://theme/shaders/menu_pattern.gdshader" id="3_jrsnh"]
+[ext_resource type="Theme" uid="uid://dnnjwe4v2gs3w" path="res://theme/theme.tres" id="4_s7ovw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pmffy"]
+shader = ExtResource("2_kk24k")
+shader_parameter/hpass = 1.0
+shader_parameter/vpass = 1.0
+shader_parameter/radius = 65
+shader_parameter/unit = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ver3e"]
+shader = ExtResource("3_jrsnh")
+shader_parameter/color = Color(0.36, 0.36, 0.36, 1)
 
 [sub_resource type="Animation" id="Animation_f8cqw"]
 length = 0.001
@@ -50,6 +65,26 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_eodw3")
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GlowShader" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_pmffy")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BackgroundShader" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_ver3e")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_vw3yp")
@@ -63,7 +98,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
+color = Color(0.02, 0.02, 0.02, 1)
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -84,23 +119,38 @@ layout_mode = 2
 theme_override_constants/separation = 50
 alignment = 1
 
-[node name="TitleText" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-theme_override_font_sizes/font_size = 123
-text = "Game Title "
+
+[node name="TitleText" type="Label" parent="MarginContainer/VBoxContainer/Control"]
+custom_minimum_size = Vector2(0, 500.77)
+layout_mode = 2
+offset_top = 50.0
+offset_right = 1900.0
+offset_bottom = 265.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(5.946, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.89, 0.89, 0.89, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_skiej")
+theme_override_font_sizes/font_size = 198
+text = "LASER LeAGuE"
 horizontal_alignment = 1
 
 [node name="ButtonsVBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/separation = 25
+theme_override_constants/separation = 55
 alignment = 1
 
 [node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonsVBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
+theme = ExtResource("4_s7ovw")
 theme_override_font_sizes/font_size = 31
 text = "Play"
 
@@ -108,6 +158,7 @@ text = "Play"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
+theme = ExtResource("4_s7ovw")
 theme_override_font_sizes/font_size = 31
 text = "Settings"
 
@@ -115,6 +166,7 @@ text = "Settings"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
+theme = ExtResource("4_s7ovw")
 theme_override_font_sizes/font_size = 31
 text = "Quit
 "
@@ -136,10 +188,11 @@ pivot_offset = Vector2(844, 242)
 
 [node name="Credits" type="Label" parent="."]
 layout_mode = 0
-offset_left = 12.0
-offset_top = 606.0
-offset_right = 360.0
-offset_bottom = 636.0
+offset_left = 29.0
+offset_top = 998.0
+offset_right = 843.0
+offset_bottom = 1057.0
 theme_override_colors/font_color = Color(1, 1, 1, 0.470588)
-theme_override_font_sizes/font_size = 21
+theme_override_fonts/font = ExtResource("2_skiej")
+theme_override_font_sizes/font_size = 51
 text = "a video game by snoodle and libus"

@@ -1,11 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://bwcskp1hsvfuj"]
+[gd_scene load_steps=13 format=3 uid="uid://bwcskp1hsvfuj"]
 
 [ext_resource type="Script" path="res://scenes/ui/hud/hud.gd" id="1_041k3"]
+[ext_resource type="Shader" path="res://theme/shaders/menu_pattern.gdshader" id="2_hixj7"]
 [ext_resource type="Texture2D" uid="uid://bmkqorbji4trj" path="res://assets/sprites/charge_bar.svg" id="2_p17a0"]
 [ext_resource type="Texture2D" uid="uid://bcxsb2eveq0og" path="res://assets/sprites/charge_bar_fill.svg" id="3_4324r"]
 [ext_resource type="Texture2D" uid="uid://fmk10gw3lcon" path="res://assets/sprites/health_bar.svg" id="4_bu0ed"]
 [ext_resource type="Texture2D" uid="uid://ceaf5nthlt40g" path="res://assets/sprites/health_bar_fill.svg" id="5_0rq43"]
 [ext_resource type="FontFile" uid="uid://bf6vrh8vugngu" path="res://theme/fonts/Robot Crush.ttf" id="6_v546w"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ux1cm"]
+shader = ExtResource("2_hixj7")
+shader_parameter/color = Color(0.56, 0.56, 0.56, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e7y4l"]
 bg_color = Color(1, 1, 1, 0)
@@ -86,7 +91,18 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_041k3")
 
+[node name="BackgroundShader" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_ux1cm")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="GridBackground" type="GridContainer" parent="."]
+visible = false
 modulate = Color(1, 1, 1, 0.0588235)
 z_index = -10
 layout_mode = 1
@@ -400,7 +416,7 @@ custom_minimum_size = Vector2(174, 163)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_e7y4l")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="UI" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -412,20 +428,20 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
 layout_mode = 2
 theme_override_constants/separation = -5
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/VBoxContainer"]
 custom_minimum_size = Vector2(0, 864)
 layout_mode = 2
 
-[node name="PlayerAChargeBar" type="TextureProgressBar" parent="MarginContainer/VBoxContainer/MarginContainer"]
+[node name="PlayerAChargeBar" type="TextureProgressBar" parent="UI/VBoxContainer/MarginContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 0
-max_value = 1.0
+max_value = 1.065
 step = 0.0
 fill_mode = 3
 nine_patch_stretch = true
@@ -435,15 +451,15 @@ stretch_margin_right = 100
 stretch_margin_bottom = 100
 texture_under = ExtResource("2_p17a0")
 texture_progress = ExtResource("3_4324r")
-tint_under = Color(8.108, 0.3, 0.1, 1)
+tint_under = Color(22.162, 0.3, 0, 1)
 tint_progress = Color(25.405, 17.838, 4.324, 1)
 
-[node name="PlayerBChargeBar" type="TextureProgressBar" parent="MarginContainer/VBoxContainer/MarginContainer"]
+[node name="PlayerBChargeBar" type="TextureProgressBar" parent="UI/VBoxContainer/MarginContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 8
-max_value = 1.0
+max_value = 1.065
 step = 0.0
 fill_mode = 3
 nine_patch_stretch = true
@@ -453,18 +469,18 @@ stretch_margin_right = 100
 stretch_margin_bottom = 100
 texture_under = ExtResource("2_p17a0")
 texture_progress = ExtResource("3_4324r")
-tint_under = Color(0, 5.946, 10.811, 1)
+tint_under = Color(0.3, 17.297, 30.811, 1)
 tint_progress = Color(1.082, 17.838, 30.27, 1)
 
-[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="UI/VBoxContainer"]
 layout_mode = 2
 
-[node name="PlayerAHealthBar" type="TextureProgressBar" parent="MarginContainer/VBoxContainer/MarginContainer2"]
+[node name="PlayerAHealthBar" type="TextureProgressBar" parent="UI/VBoxContainer/MarginContainer2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 0
-min_value = -0.3
+min_value = -0.23
 max_value = 1.2
 step = 0.0
 value = 1.0
@@ -475,15 +491,15 @@ stretch_margin_right = 100
 stretch_margin_bottom = 100
 texture_under = ExtResource("4_bu0ed")
 texture_progress = ExtResource("5_0rq43")
-tint_under = Color(4, 0.3, 0.1, 1)
+tint_under = Color(22.162, 0.3, 0, 1)
 tint_progress = Color(25.405, 17.838, 4.324, 1)
 
-[node name="PlayerBHealthBar" type="TextureProgressBar" parent="MarginContainer/VBoxContainer/MarginContainer2"]
+[node name="PlayerBHealthBar" type="TextureProgressBar" parent="UI/VBoxContainer/MarginContainer2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 8
-min_value = -0.3
+min_value = -0.23
 max_value = 1.2
 step = 0.0
 value = 1.0
@@ -494,7 +510,7 @@ stretch_margin_right = 100
 stretch_margin_bottom = 100
 texture_under = ExtResource("4_bu0ed")
 texture_progress = ExtResource("5_0rq43")
-tint_under = Color(0, 5.946, 4, 1)
+tint_under = Color(0.3, 17.297, 30.811, 1)
 tint_progress = Color(1.082, 17.838, 30.27, 1)
 
 [node name="ScoresContainer" type="HBoxContainer" parent="."]
@@ -612,3 +628,48 @@ text = "[center][wave amp=20.0 freq=10.0 connected=1]BLUE
 WINS"
 scroll_active = false
 autowrap_mode = 0
+
+[node name="TutorialLabel" type="RichTextLabel" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.529412)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -526.5
+offset_top = -191.0
+offset_right = 526.5
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0.39, 0.39, 0.39, 1)
+theme_override_fonts/normal_font = ExtResource("6_v546w")
+theme_override_font_sizes/normal_font_size = 86
+bbcode_enabled = true
+text = "[center][wave amp=20.0 freq=10.0 connected=1]Left Stick to [color=LIGHT_GRAY]Move[/color]
+Right Stick to [color=LIGHT_GRAY]aim[/color]
+Bumpers to [color=LIGHT_GRAY]Dodge[/color]
+Hold Triggers to [color=d94343][pulse freq=1.0 color=RED ease=-2.0]CHARGe[/pulse][/color]"
+
+[node name="TutorialLabel2" type="RichTextLabel" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.529412)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -191.0
+offset_top = 507.0
+offset_right = 192.0
+offset_bottom = 538.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0.39, 0.39, 0.39, 1)
+theme_override_fonts/normal_font = ExtResource("6_v546w")
+theme_override_font_sizes/normal_font_size = 26
+bbcode_enabled = true
+text = "[center][wave amp=20.0 freq=10.0 connected=1]Press Start to Reset"

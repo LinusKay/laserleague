@@ -15,6 +15,11 @@ func _ready() -> void:
 	%WinLabelA.visible = false
 	%WinLabelB.visible = false
 	update_scores()
+	
+	if ScoreManager.scores == [ 0, 0 ]:
+		%TutorialLabel.visible = true
+	else:
+		%TutorialLabel.visible = false
 
 
 func _process(_delta: float) -> void:

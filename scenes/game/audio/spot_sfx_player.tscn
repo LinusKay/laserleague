@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://rvia0bbtusrh"]
+
+[ext_resource type="Script" path="res://scenes/game/audio/spot_sfx_player.gd" id="1_b8xtg"]
+
+[node name="SpotSfxPlayer" type="AudioStreamPlayer2D"]
+bus = &"sfx"
+script = ExtResource("1_b8xtg")

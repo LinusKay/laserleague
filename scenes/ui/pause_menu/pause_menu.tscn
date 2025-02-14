@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dxd67g8sahn4v"]
+[gd_scene load_steps=5 format=3 uid="uid://dxd67g8sahn4v"]
 
 [ext_resource type="Script" path="res://scenes/ui/pause_menu/pause_menu.gd" id="1_85ook"]
 [ext_resource type="PackedScene" uid="uid://b2s4wrg6igrd1" path="res://scenes/ui/settings_menu/settings_menu.tscn" id="1_wlisy"]
+[ext_resource type="FontFile" uid="uid://bf6vrh8vugngu" path="res://theme/fonts/Robot Crush.ttf" id="3_1afe7"]
+[ext_resource type="Theme" uid="uid://dnnjwe4v2gs3w" path="res://theme/theme.tres" id="3_hcchy"]
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -50,21 +52,22 @@ theme_override_constants/separation = 30
 
 [node name="Label" type="Label" parent="PauseMenuContents/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 72
+theme_override_fonts/font = ExtResource("3_1afe7")
+theme_override_font_sizes/font_size = 147
 text = "Paused"
 horizontal_alignment = 1
 
 [node name="ButtonsVBoxContainer" type="VBoxContainer" parent="PauseMenuContents/VBoxContainer"]
-clip_contents = true
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/separation = 10
+theme_override_constants/separation = 45
 
 [node name="ResumeButton" type="Button" parent="PauseMenuContents/VBoxContainer/ButtonsVBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 65)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("3_hcchy")
 theme_override_font_sizes/font_size = 36
 text = "Resume"
 
@@ -72,6 +75,9 @@ text = "Resume"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 65)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("3_hcchy")
 theme_override_font_sizes/font_size = 36
 text = "Settings"
 
@@ -79,6 +85,9 @@ text = "Settings"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 65)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("3_hcchy")
 theme_override_font_sizes/font_size = 36
 text = "Quit
 "

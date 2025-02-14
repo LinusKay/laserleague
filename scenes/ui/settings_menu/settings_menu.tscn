@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b2s4wrg6igrd1"]
+[gd_scene load_steps=5 format=3 uid="uid://b2s4wrg6igrd1"]
 
 [ext_resource type="Script" path="res://scenes/ui/settings_menu/settings_menu.gd" id="1_wjtlc"]
+[ext_resource type="FontFile" uid="uid://bf6vrh8vugngu" path="res://theme/fonts/Robot Crush.ttf" id="2_3wkct"]
+[ext_resource type="Theme" uid="uid://dnnjwe4v2gs3w" path="res://theme/theme.tres" id="2_e6o8f"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y2muv"]
 
@@ -36,7 +38,8 @@ theme_override_constants/separation = -85
 [node name="SettingsLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 76
+theme_override_fonts/font = ExtResource("2_3wkct")
+theme_override_font_sizes/font_size = 156
 text = "Settings"
 horizontal_alignment = 1
 
@@ -63,6 +66,7 @@ theme_override_constants/separation = -10
 
 [node name="MasterVolumeLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/SettingsGroups/AudioSettings/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_e6o8f")
 theme_override_font_sizes/font_size = 48
 text = "Master Volume"
 horizontal_alignment = 1
@@ -71,17 +75,20 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 30)
 layout_mode = 2
+theme = ExtResource("2_e6o8f")
 max_value = 1.0
 step = 0.01
 value = 0.5
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer/VBoxContainer/SettingsGroups/AudioSettings/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_e6o8f")
 theme_override_constants/separation = 59
 theme_override_styles/separator = SubResource("StyleBoxEmpty_y2muv")
 
 [node name="MusicVolumeLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/SettingsGroups/AudioSettings/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_e6o8f")
 theme_override_font_sizes/font_size = 48
 text = "Music Volume"
 horizontal_alignment = 1
@@ -90,17 +97,20 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 30)
 layout_mode = 2
+theme = ExtResource("2_e6o8f")
 max_value = 1.0
 step = 0.01
 value = 0.5
 
 [node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer/VBoxContainer/SettingsGroups/AudioSettings/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_e6o8f")
 theme_override_constants/separation = 59
 theme_override_styles/separator = SubResource("StyleBoxEmpty_y2muv")
 
 [node name="SfxVolumeLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/SettingsGroups/AudioSettings/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_e6o8f")
 theme_override_font_sizes/font_size = 48
 text = "SFX Volume"
 horizontal_alignment = 1
@@ -109,6 +119,7 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 30)
 layout_mode = 2
+theme = ExtResource("2_e6o8f")
 max_value = 1.0
 step = 0.01
 value = 0.5
@@ -131,6 +142,7 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_y2muv")
 
 [node name="WindowButtonLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/SettingsGroups/GraphicsSettings/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_e6o8f")
 theme_override_font_sizes/font_size = 48
 text = "Window Mode"
 horizontal_alignment = 1
@@ -141,6 +153,7 @@ custom_minimum_size = Vector2(270, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme = ExtResource("2_e6o8f")
 text = "Windowed
 "
 
@@ -156,5 +169,6 @@ offset_left = 55.0
 offset_top = 56.0
 offset_right = 121.0
 offset_bottom = 92.0
+theme = ExtResource("2_e6o8f")
 theme_override_font_sizes/font_size = 32
 text = "Back"
