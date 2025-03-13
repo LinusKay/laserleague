@@ -17,10 +17,15 @@ func emit_player_won_round(player_index: int) -> void: player_won_round.emit(pla
 signal add_screen_shake_signal(amount: float)
 func add_screen_shake(amount: float) -> void: add_screen_shake_signal.emit(amount)
 
+
+func _ready() -> void:
+	toggle_fullscreen()
+
 # global inputs
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_fullscreen"):
-		toggle_fullscreen()
+		if !DemoModeComponent.is_demo_mode_active:
+			toggle_fullscreen()
 	if Input.is_action_just_pressed("reset_score"):
 		ScoreManager.scores = [ 0, 0 ]
 		ScreenTransition.transition_to_scene("res://scenes/game/main.tscn")

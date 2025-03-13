@@ -27,11 +27,13 @@ func _input(_event: InputEvent) -> void:
 func pause() -> void:
 	get_tree().paused = true
 	visible = true
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 
 func unpause() -> void:
 	visible = false
 	get_tree().paused = false
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
 func on_resume_button_pressed() -> void:
@@ -49,6 +51,8 @@ func settings_back_button_pressed() -> void:
 
 
 func on_quit_button_pressed() -> void:
+	if DemoModeComponent.is_demo_mode_active:
+		get_tree().quit()
 	ScreenTransition.transition()
 	await ScreenTransition.transitioned_halfway
 	get_tree().paused = false

@@ -24,6 +24,7 @@ Global="*res://scenes/autoload/global.tscn"
 ScreenTransition="*res://scenes/ui/screen_transition/screen_transition.tscn"
 ScoreManager="*res://scenes/autoload/score_manager.tscn"
 AudioController="*res://scenes/game/audio/audio_controller.tscn"
+DemoModeComponent="*res://scenes/autoload/demo_mode_component/demo_mode_component.tscn"
 
 [debug]
 

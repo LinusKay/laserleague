@@ -13,6 +13,9 @@ func _ready() -> void:
 	play_button.pressed.connect(on_play_button_pressed)
 	settings_button.pressed.connect(on_settings_button_pressed)
 	quit_button.pressed.connect(on_quit_button_pressed)
+	
+	if DemoModeComponent.is_demo_mode_active:
+		get_tree().change_scene_to_file("res://scenes/game/main.tscn")
 
 
 func on_play_button_pressed() -> void:
