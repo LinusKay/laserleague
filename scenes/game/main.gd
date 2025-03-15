@@ -20,6 +20,8 @@ func _ready() -> void:
 	AudioController.play_sfx(AudioController.SFX_START)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
+	Global.is_ingame = true
+
 
 func spawn_layout() -> void:
 	var layout_scene: PackedScene

@@ -51,8 +51,8 @@ func settings_back_button_pressed() -> void:
 
 
 func on_quit_button_pressed() -> void:
-	if DemoModeComponent.is_demo_mode_active:
-		get_tree().quit()
+	#if DemoModeComponent.is_demo_mode_active:
+		#get_tree().quit()
 	ScreenTransition.transition()
 	await ScreenTransition.transitioned_halfway
 	get_tree().paused = false

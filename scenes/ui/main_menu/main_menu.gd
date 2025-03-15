@@ -14,8 +14,18 @@ func _ready() -> void:
 	settings_button.pressed.connect(on_settings_button_pressed)
 	quit_button.pressed.connect(on_quit_button_pressed)
 	
-	if DemoModeComponent.is_demo_mode_active:
-		get_tree().change_scene_to_file("res://scenes/game/main.tscn")
+	if OS.has_feature("web"):
+		quit_button.visible = false
+	
+	Global.is_ingame = false
+	
+	#if DemoModeComponent.is_demo_mode_active:
+		#get_tree().change_scene_to_file("res://scenes/game/main.tscn")
+
+
+func _input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("ui_startgame"):
+		on_play_button_pressed()
 
 
 func on_play_button_pressed() -> void:

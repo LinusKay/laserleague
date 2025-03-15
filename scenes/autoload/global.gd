@@ -17,6 +17,8 @@ func emit_player_won_round(player_index: int) -> void: player_won_round.emit(pla
 signal add_screen_shake_signal(amount: float)
 func add_screen_shake(amount: float) -> void: add_screen_shake_signal.emit(amount)
 
+var is_ingame: bool = false
+
 
 func _ready() -> void:
 	toggle_fullscreen()

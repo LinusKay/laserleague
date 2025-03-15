@@ -4,7 +4,7 @@
 
 [node name="DemoModeComponent" type="CanvasLayer"]
 script = ExtResource("1_xep71")
-is_demo_mode_active = true
+time_until_quit = 45.0
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 z_index = 100

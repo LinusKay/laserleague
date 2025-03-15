@@ -152,7 +152,7 @@ custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 theme = ExtResource("4_s7ovw")
 theme_override_font_sizes/font_size = 31
-text = "Play"
+text = "Play [A]"
 
 [node name="SettingsButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonsVBoxContainer"]
 unique_name_in_owner = true

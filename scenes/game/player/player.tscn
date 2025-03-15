@@ -151,10 +151,10 @@ _data = {
 radius = 32.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fm5mr"]
-radius = 30.0
+radius = 43.0465
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fye55"]
-size = Vector2(2896, 20)
+size = Vector2(2896, 25)
 
 [sub_resource type="Gradient" id="Gradient_ryi2h"]
 offsets = PackedFloat32Array(0, 0.2, 0.3, 0.7, 0.8, 1)
@@ -198,7 +198,6 @@ unique_name_in_owner = true
 
 [node name="DashCooldownTimer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 0.6
 one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

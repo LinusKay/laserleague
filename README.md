@@ -1,33 +1,14 @@
-# Game-A-Week: Week Two
+A fast-paced arena duel where both players can infinitely charge their lasers! 
 
-> Game-a-Week is an intensive program in which participants will create 6 prototype games  — one game each week. The aim of this program is to get comfortable with the practice of rapid prototyping: working quickly to create a small playable game that effectively proves or disproves a design concept. Additionally, by working on small projects with low stakes, we can open ourselves up more readily to feedback. Drawing influence from game jams, the program will prompt you with weekly thematic, aesthetic, or mechanical constraints (e.g. “time” or “black-and-white” or “one-button input”).
+Two players, controller required.
 
-## Game: ???
-
-!["Showcase image"](/showcase/???.png)
-
-> ...
-
-### Controls
-
-|Keys|Control|
-|-------|----|
-||
+CONTROLS:
+Left Stick to move
+Right Stick to aim
+Bumpers to dodge
+Hold triggers to charge!
 
 
-## Discussion
+A pair of headphones would be ideal for display.
 
-Theme #4 for 2025 Game-A-Week was "release". 
-
-
-### Concept
-
-
-
-
-### Development
-
-
-
-## Resources
-* 
+Needs enough space for two players to play at once, ideally standing space.
