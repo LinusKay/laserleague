@@ -1,7 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwapq1bn1gukd"]
+[gd_scene load_steps=7 format=3 uid="uid://cwapq1bn1gukd"]
 
 [ext_resource type="Script" path="res://scenes/ui/main_menu/settings_main_menu.gd" id="1_s007g"]
 [ext_resource type="PackedScene" uid="uid://b2s4wrg6igrd1" path="res://scenes/ui/settings_menu/settings_menu.tscn" id="2_gbs0h"]
+[ext_resource type="Shader" path="res://theme/shaders/glow.gdshader" id="2_x1jm8"]
+[ext_resource type="Shader" path="res://theme/shaders/menu_pattern.gdshader" id="3_clfau"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k1f86"]
+shader = ExtResource("3_clfau")
+shader_parameter/color = Color(0.28, 0.28, 0.28, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_18g2h"]
+shader = ExtResource("2_x1jm8")
+shader_parameter/hpass = 1.0
+shader_parameter/vpass = 1.0
+shader_parameter/radius = 65
+shader_parameter/unit = Vector2(1, 1)
 
 [node name="SettingsMainMenu" type="Control"]
 layout_mode = 3
@@ -19,8 +32,29 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.0786, 0.0632, 0.08, 1)
+color = Color(0.088425, 0.0711, 0.09, 1)
+
+[node name="BackgroundShader" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_k1f86")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="SettingsMenu" parent="." instance=ExtResource("2_gbs0h")]
 unique_name_in_owner = true
+modulate = Color(4.324, 1, 1, 1)
 layout_mode = 1
+
+[node name="GlowShader" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_18g2h")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
